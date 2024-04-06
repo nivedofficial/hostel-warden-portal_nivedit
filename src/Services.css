@@ -1,0 +1,95 @@
+/* App.css */
+
+.App{
+  display: flex;
+  flex-wrap: wrap;
+}
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f6f6ee;
+}
+
+.header {
+  background-color: #F6F6EF;
+  padding-top: 7px;
+  padding-left: 40px;
+  padding-right: 1000px; /* This large padding is just for demonstration */
+  color: #000000;
+  border-bottom: 1px solid #C2C2C2;
+  font-family: 'Satoshi Variable';
+  font-style: normal;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon-logo{
+  padding-left: 44px;
+  padding-top: 51px;
+  padding-bottom: 40px;
+  background-color: #fff;
+}
+.logo{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bolder;
+  padding-top: 50px;
+  padding-left: 8px;
+  padding-right: 106px;
+  padding-bottom: 30px;
+  color: #1d1d1d;
+  background-color: #fff;
+}
+
+.icons-dash, .permi-icons-dash {
+  margin-right: 13px;
+}
+
+.icon-text-container {
+  display: flex;
+  align-items: center;
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-nav {
+  width: 200px;
+  background-color: #fff;
+  padding: 20px 20px 20px 27px;
+}
+
+.dashboard-option {
+  font-family: 'Satoshi Variable';
+  font-style: normal;
+  font-weight: bold;
+  display: block;
+  padding: 15px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dashboard-option:hover,.dashboard-option.active {
+  background-color: #D3F36A;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .dashboard-nav {
+    width: 100%;
+  }
+}

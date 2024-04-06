@@ -1,0 +1,362 @@
+/* src/components/StudentDetails.css */
+.student-details {
+    margin-top: 20px;
+    margin-left: 5px;
+    text-align: left; 
+    
+  }
+.student-details h2{
+    font-family: 'Satoshi Variable';
+    font-style: normal;
+    color: #454545;
+    font-weight: 500;
+    margin-left: 25px;
+    margin-bottom:50px
+}
+.student-page{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.student-box{
+    /* Frame 14 */
+    box-sizing: border-box;
+
+    position: relative;
+    width: 341px;
+    height: 403px;
+
+    margin: 20px;
+    
+    background: #FFFFFF;
+    border: 0.860759px dashed #B6B6B6;
+    border-radius: 34.4304px;
+    
+
+}
+
+.image{
+    /* Frame 56 */
+
+    position: absolute;
+    width: 98px;
+    height: 91px;
+    left: 19px;
+    top: 19px;
+
+    background: #D3F36A;
+    border-radius: 20px;
+
+}
+
+.name{
+
+    /* John Doe */
+
+    position: absolute;
+    text-align: left;
+    width: 200.39px;
+    height: 28px;
+    left: 136px;
+    top: 18px;
+
+    font-family: 'Satoshi Variable';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 27.9432px;
+    line-height: 35px;
+
+    color: #313630;
+
+
+}
+
+.age{
+text-align: left;
+position: absolute;
+width: 100px;
+height: 18px;
+left: 139px;
+top: 62px;
+
+font-family: 'Satoshi Variable';
+font-style: normal;
+font-weight: 400;
+font-size: 17.9635px;
+line-height: 22px;
+
+color: #313630;
+
+}
+
+
+
+.phone{
+    /* Ph no: */
+text-align: left;
+position: absolute;
+width: 200px;
+height: 18px;
+left: 138px;
+top: 87px;
+
+font-family: 'Satoshi Variable';
+font-style: normal;
+font-weight: 400;
+font-size: 17.9635px;
+line-height: 22px;
+
+color: #313630;
+
+
+}
+
+.address {
+    /* Address: */
+    padding-top: 20px;
+    position: absolute;
+    width: 200px;
+    height: auto; /* Adjust height to accommodate multiple lines */
+    left: 28px;
+    top: 112px; /* Adjusted top position to increase space */
+    text-align: left;
+    font-family: 'Satoshi Variable';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17.9635px;
+    line-height: 22px;
+    color: #313630;
+    white-space: pre-wrap; /* Allow line breaks */
+  }
+  
+.semester{
+    /* Semester: */
+
+position: absolute;
+width: 150px;
+height: 18px;
+left: 28px;
+top: 300px;
+text-align: left;
+font-family: 'Satoshi Variable';
+font-style: normal;
+font-weight: 400;
+font-size: 17.9635px;
+line-height: 22px;
+
+color: #313630;
+
+
+}
+
+.batch{
+    /* Batch: */
+
+position: absolute;
+width: 150px;
+height: 18px;
+left: 28px;
+top: 217px;
+text-align: left;
+font-family: 'Satoshi Variable';
+font-style: normal;
+font-weight: 400;
+font-size: 17.9635px;
+line-height: 22px;
+
+color: #313630;
+
+
+}
+
+.disability{
+    /* Disability: */
+
+position: absolute;
+width: 200px;
+height: 18px;
+left: 28px;
+top: 242px;
+text-align: left;
+font-family: 'Satoshi Variable';
+font-style: normal;
+font-weight: 400;
+font-size: 17.9635px;
+line-height: 22px;
+
+color: #313630;
+
+
+}
+
+.gender{
+    /* Gender: */
+
+/* Gender: */
+
+position: absolute;
+text-align: left;
+width: 180px;
+height: 18px;
+left: 28px;
+top: 266px;
+
+font-family: 'Satoshi Variable';
+font-style: normal;
+font-weight: 400;
+font-size: 17.9635px;
+line-height: 22px;
+
+color: #313630;
+
+
+}
+
+.delete {
+    width: 36px; /* Adjust width and height to create a circular button */
+    height: 36px;
+    border-radius: 50%; /* Makes the button circular */
+    background-color: #fb6565; /* Red background color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    font-size: 18px; /* Font size */
+    cursor: pointer; /* Cursor on hover */
+    transition: background-color 0.3s;
+    margin-left: 290px;
+    margin-top: 10px;
+     
+  }
+  
+  .delete:hover {
+    background-color: #e30505; /* Darker red background color on hover */
+  }
+  
+.show-delete{
+    margin-left: 30px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #ff4444; /* Red background color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 8px 16px; /* Padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 10px; /* Rounded corners */
+    transition: background-color 0.3s;
+}
+
+.add-user-form {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .add-user-form h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  .add-user-form input[type="text"],
+  .add-user-form input[type="number"],
+  .add-user-form input[type="checkbox"] {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-user-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .add-user-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .add-user-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .button-container {
+    display: flex;
+  }
+  
+  .add-user-button-container {
+    margin-left: 20px;
+  }
+  
+  .add-user {
+    background-color: rgb(78, 245, 78);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    
+  }
+  
+  .add-user:hover {
+    background-color: limegreen; /* Change color on hover */
+  }
+  
+  /* StudentDetails.css */
+
+.student-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.action-buttons {
+  margin-top: auto; /* Pushes buttons to the bottom */
+  display: flex;
+  justify-content: space-between;
+}
+
+.accept-button,
+.reject-button {
+  padding: 8px 15px;
+  margin-right: 7px;
+  margin-left: 55px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.accept-button {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.reject-button {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.accepted-status {
+  margin-left: 30px;
+  margin-bottom: 20px;
+  color: #4CAF50; /* Green */
+}
+
+.rejected-status {
+  margin-left: 30px;
+  margin-bottom: 20px;
+  color: #f44336; /* Red */
+}
+.status{
+  margin-left: 60px;
+  margin-bottom: 20px;
+}

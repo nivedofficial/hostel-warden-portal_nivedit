@@ -104,6 +104,7 @@ const StudentDetails = () => {
         </div>
       )}
       <div className="student-page">
+        
         {students.map((student, index) => (
           <div className="student-box" key={student.id}>
             <div>

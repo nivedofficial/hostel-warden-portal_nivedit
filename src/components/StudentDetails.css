@@ -360,3 +360,180 @@ color: #313630;
   margin-left: 60px;
   margin-bottom: 20px;
 }
+
+/* StudentDetails.css */
+.student-details {
+  margin-top: 20px;
+  margin-left: 5px;
+  text-align: left; 
+}
+
+.student-details h2 {
+  font-family: 'Satoshi Variable';
+  font-style: normal;
+  color: #454545;
+  font-weight: 500;
+  margin-left: 25px;
+  margin-bottom: 50px;
+}
+
+.student-page {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.student-box {
+  box-sizing: border-box;
+  position: relative;
+  width: 400px;
+  height: 650px; /* Adjusted height to accommodate varying content */
+  margin: 20px;
+  background: #FFFFFF;
+  border: 0.860759px dashed #B6B6B6;
+  border-radius: 34.4304px;
+}
+
+.image {
+  position: absolute;
+  width: 98px;
+  height: 91px;
+  left: 19px;
+  top: 19px;
+  background: #D3F36A;
+  border-radius: 20px;
+}
+
+.name {
+  position: absolute;
+  text-align: left;
+  width: 200.39px;
+  height: 28px;
+  left: 136px;
+  top: 18px;
+  font-family: 'Satoshi Variable';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 27.9432px;
+  line-height: 35px;
+  color: #313630;
+}
+
+/* Additional fields */
+
+.admission-num,
+.annual-income,
+.branch,
+.contact-num,
+.dob,
+.distance,
+.email,
+.emergency-contact,
+.guardian-name,
+.guardian-relation,
+.location {
+  
+  position: relative;
+  text-align: left;
+  font-family: 'Satoshi Variable';
+  font-style: normal;
+  
+  font-size: 17.9635px;
+  line-height: 22px;
+  color: #313630;
+}
+
+.admission-num {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 150px; /* Adjusted top position */
+}
+
+.annual-income {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 175px; /* Adjusted top position */
+}
+
+.branch {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 200px; /* Adjusted top position */
+}
+
+.contact-num {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 225px; /* Adjusted top position */
+}
+
+.dob {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 250px; /* Adjusted top position */
+}
+
+.distance {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 275px; /* Adjusted top position */
+}
+
+.email {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 300px; /* Adjusted top position */
+}
+
+.emergency-contact {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 325px; /* Adjusted top position */
+}
+
+.guardian-name {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 350px; /* Adjusted top position */
+}
+
+.guardian-relation {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 375px; /* Adjusted top position */
+}
+
+.location {
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 400px; /* Adjusted top position */
+}
+
+/* Rest of the CSS remains unchanged */
+
+/* StudentDetails.css */
+
+
+.field-value {
+  font-family: 'Satoshi Variable';
+  font-style: normal;
+  font-weight: 600;
+  color: #313630;
+
+}
+
+.details{
+  display: flex;
+  flex-direction: column;
+ gap:-2px
+}

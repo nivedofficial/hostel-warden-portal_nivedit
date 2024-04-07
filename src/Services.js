@@ -16,16 +16,14 @@ import { ReactComponent as LaundryIcon } from './icons-svg/laundry.svg';
 import { ReactComponent as PermissionIcon } from './icons-svg/permission.svg';
 import { useState } from 'react';
 import PermissionRequest from './components/PermissionRequest';
+import { AdmissionApplications } from './components/applications';
 
 
 // Components for each option
-// const PermissionRequest = () => <div>Leave Request Page Hi</div>;
 const LaundrySchedule = () => <div>Laundry Schedule Page</div>;
-// const NoticeBoard = () => <div>Notice Board Page</div>;
 const RoomAllocations = () => <div>Room Allocations Page</div>;
 const HostelFees = () => <div>Hostel Fees Page</div>;
 const PeriodicShuffling = () => <div>Periodic Shuffling Page</div>;
-const AdmissionApplications = () => <div>Admission Applications Page</div>;
 
 // Dashboard component
 const Dashboard = () => {

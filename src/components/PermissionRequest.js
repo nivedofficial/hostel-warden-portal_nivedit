@@ -1,76 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import './StudentDetails.css';
+import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { firestore } from '../firebaseConfig'; // Import your Firestore configuration
+import './permission.css';
 
 const PermissionRequest = () => {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    // Dummy data
-    const dummyData = [
-      {
-        id: 1,
-        name: 'John Doe',
-        age: 20,
-        phone: '123-456-7890',
-        address: '123 Main St, Anytown',
-        semester: '3rd',
-        batch: 'A',
-        reason: 'Scholarship',
-        roomNumber: 'A1', // Example room number
-        status: '', // Initially no status
-      },
-      {
-        id: 2,
-        name: 'Jane Smith',
-        age: 19,
-        phone: '987-654-3210',
-        address: '456 Elm St, Anytown',
-        semester: '2nd',
-        batch: 'D',
-        reason: 'Transfer',
-        roomNumber: 'A2', // Example room number
-        status: '', // Initially no status
-      },
-      // Add more student data as needed
-    ];
+    const fetchStudents = async () => {
+      try {
+        const studentsCollection = collection(firestore, 'permissions');
+        const studentsSnapshot = await getDocs(studentsCollection);
+        const studentsData = studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setStudents(studentsData);
+      } catch (error) {
+        console.error('Error fetching students: ', error);
+      }
+    };
 
-    setStudents(dummyData);
+    fetchStudents();
   }, []);
 
-  const handleAccept = (id) => {
-    // Update the status of the student with the given id to 'Accepted'
-    const updatedStudents = students.map(student =>
-      student.id === id ? { ...student, status: 'Accepted' } : student
-    );
-    setStudents(updatedStudents);
+  const handleAccept = async (id) => {
+    try {
+      const studentRef = doc(firestore, 'permissions', id);
+      await updateDoc(studentRef, { status: 'Accepted' });
+      setStudents(prevStudents => 
+        prevStudents.map(student =>
+          student.id === id ? { ...student, status: 'Accepted' } : student
+        )
+      );
+    } catch (error) {
+      console.error('Error accepting student: ', error);
+    }
   };
 
-  const handleReject = (id) => {
-    // Update the status of the student with the given id to 'Rejected'
-    const updatedStudents = students.map(student =>
-      student.id === id ? { ...student, status: 'Rejected' } : student
-    );
-    setStudents(updatedStudents);
+  const handleReject = async (id) => {
+    try {
+      const studentRef = doc(firestore, 'permissions', id);
+      await updateDoc(studentRef, { status: 'Rejected' });
+      setStudents(prevStudents => 
+        prevStudents.map(student =>
+          student.id === id ? { ...student, status: 'Rejected' } : student
+        )
+      );
+    } catch (error) {
+      console.error('Error rejecting student: ', error);
+    }
   };
 
   return (
     <div className="student-page">
       {students.map(student => (
-        <div className="student-box" key={student.id}>
+        <div className="student-box1" key={student.id}>
           <div>
             <div className="image"></div>
-            <div className="name">{student.name}</div>
-            <div className="age">Age: {student.age}</div>
-            <div className="phone">Ph no: {student.phone}</div>
-            <div className="address">Address: {student.address}</div>
-            <div className="semester">Semester: {student.semester}</div>
-            <div className="batch">Batch: {student.batch}</div>
-            <div className="disability">Disability: {student.disability ? "Yes" : "No"}</div>
-            <div className="gender">Reason: {student.reason}</div>
-          </div>
+            <div className="name">{student.name && <span className="bold">{student.name}</span>}</div>
+            <div className="branch">Branch: {student.branch && <span className="bold">{student.branch}</span>}</div>
+            <div className="semester">Semester: {student.semester && <span className="bold">{student.semester}</span>}</div>
+            <div className="start-time">Start Time: {student.start_time && <span className="bold">{student.start_time}</span>}</div>
+            <div className="end-time">End Time: {student.end_time && <span className="bold">{student.end_time}</span>}</div>
+            <div className="request">Request: {student.request && <span className="bold">{student.request}</span>}</div>
+         </div>
+
           <div className="action-buttons">
-            {student.status === '' && (
+            {student.status !== 'Accepted' && student.status !== 'Rejected' && (
               <div>
                 <button className="accept-button" onClick={() => handleAccept(student.id)}>Accept</button>
                 <button className="reject-button" onClick={() => handleReject(student.id)}>Reject</button>

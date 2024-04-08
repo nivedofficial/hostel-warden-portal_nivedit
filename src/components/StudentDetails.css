@@ -393,30 +393,7 @@ color: #313630;
   border-radius: 34.4304px;
 }
 
-.image {
-  position: absolute;
-  width: 98px;
-  height: 91px;
-  left: 19px;
-  top: 19px;
-  background: #D3F36A;
-  border-radius: 20px;
-}
 
-.name {
-  position: absolute;
-  text-align: left;
-  width: 200.39px;
-  height: 28px;
-  left: 136px;
-  top: 18px;
-  font-family: 'Satoshi Variable';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 27.9432px;
-  line-height: 35px;
-  color: #313630;
-}
 
 /* Additional fields */
 

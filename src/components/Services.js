@@ -17,12 +17,13 @@ import { ReactComponent as PermissionIcon } from './icons-svg/permission.svg';
 import { useState } from 'react';
 import PermissionRequest from './PermissionRequest';
 import AdmissionApplications from './AdmissionApplications';
+import Attendance from './Attendance';
 
 
 // Components for each option
 const LaundrySchedule = () => <div>Laundry Schedule Page</div>;
 // const NoticeBoard = () => <div>Notice Board Page</div>;
-const Attendance = () => <div>Attendance Page</div>;
+// const Attendance = () => <div>Attendance Page</div>;
 const HostelFees = () => <div>Hostel Fees Page</div>;
 const PeriodicShuffling = () => <div>Periodic Shuffling Page</div>;
 // const AdmissionApplications = () => <div>Admission Applications Page</div>;
@@ -43,7 +44,7 @@ const Dashboard = () => {
     { name: 'Permission Request', path: '/components/PermissionRequest', icon: <PermissionIcon className="permi-icons-dash" /> },
     { name: 'Laundry Schedule', path: '/laundry-schedule', icon: <LaundryIcon className="icons-dash" /> },
     { name: 'Notice Board', path: '/components/NoticeBoard', icon: <NoticeIcon className="icons-dash" /> },
-    { name: 'Attendance', path: '/attendance' },
+    { name: 'Attendance', path: '/componenets/Attendance' },
     { name: 'Hostel Fees', path: '/hostel-fees', icon: <FeeIcon className="icons-dash" /> },
     { name: 'Periodic Shuffling', path: '/periodic-shuffling', icon: <PShuffleIcon className="icons-dash" /> },
     { name: 'Admission Applications', path: '/AdmissionApplications', icon: <ApplicationIcon className="icons-dash" /> },
@@ -69,7 +70,7 @@ const Dashboard = () => {
           <Route path="/components/PermissionRequest" component={PermissionRequest} />
           <Route path="/laundry-schedule" component={LaundrySchedule} />
           <Route path="/components/NoticeBoard" component={NoticeBoard} />
-          <Route path="/attendance" component={Attendance} />
+          <Route path="/components/Attendance" component={Attendance} />
           <Route path="/hostel-fees" component={HostelFees} />
           <Route path="/periodic-shuffling" component={PeriodicShuffling} />
           <Route path="/AdmissionApplications" component={AdmissionApplications} />

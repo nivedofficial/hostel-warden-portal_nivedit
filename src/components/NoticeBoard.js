@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { firestore } from '../firebaseConfig'; // Import your Firestore configuration
 import './noticeboard.css'; // Import your CSS file for styling
 
 const NoticeBoard = () => {
@@ -7,31 +9,50 @@ const NoticeBoard = () => {
   const [content, setContent] = useState('');
   const [searchDate, setSearchDate] = useState('');
   const [searchedNotices, setSearchedNotices] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
 
+  // Check if 'notices' collection exists, if not create it
   useEffect(() => {
-    const storedNotices = JSON.parse(localStorage.getItem('notices')) || [];
-    setNotices(storedNotices);
+    const checkNoticeCollection = async () => {
+      try {
+        const noticeCollectionRef = collection(firestore, 'notice');
+        await getDocs(noticeCollectionRef);
+      } catch (error) {
+        console.error("Notice collection doesn't exist, creating...");
+        // Create 'notice' collection
+        await firestore.collection('notice').doc();
+      }
+    };
+
+    checkNoticeCollection();
   }, []);
 
-  const storeNoticesToLocalStorage = (updatedNotices) => {
-    localStorage.setItem('notices', JSON.stringify(updatedNotices));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const noticeData = {
       title,
       content,
       date: new Date().toLocaleString(), // Use local date and time format
     };
-    const updatedNotices = [...notices, noticeData];
-    setNotices(updatedNotices);
-    storeNoticesToLocalStorage(updatedNotices);
+
+    try {
+      const docRef = await addDoc(collection(firestore, 'notice'), noticeData);
+      console.log('Notice written with ID: ', docRef.id);
+      setNotices([...notices, noticeData]);
+      setSuccessMessage('Message sent successfully!');
+    } catch (error) {
+      console.error('Error adding notice: ', error);
+    }
+
     setTitle('');
     setContent('');
+    // Clear success message after 3 seconds
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000);
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (!searchDate) {
       setSearchedNotices([]);
       return;
@@ -41,22 +62,28 @@ const NoticeBoard = () => {
     const formattedSearchDate = new Date(searchDate).toISOString().split('T')[0];
     console.log('Formatted search date:', formattedSearchDate);
 
-    const filteredNotices = notices.filter(notice => {
-      // Extract the date part of the notice date in the same format as the search date
-      const formattedNoticeDate = new Date(notice.date).toISOString().split('T')[0];
-      console.log('Formatted notice date:', formattedNoticeDate);
-      // Check if the notice date includes the search date
-      return formattedNoticeDate === formattedSearchDate;
-    });
-
-    console.log('Filtered notices:', filteredNotices);
-
-    setSearchedNotices(filteredNotices);
+    try {
+      const querySnapshot = await getDocs(collection(firestore, 'notice'));
+      const filteredNotices = querySnapshot.docs
+        .map(doc => ({ id: doc.id, ...doc.data() }))
+        .filter(notice => {
+          // Extract the date part of the notice date in the same format as the search date
+          const formattedNoticeDate = new Date(notice.date).toISOString().split('T')[0];
+          console.log('Formatted notice date:', formattedNoticeDate);
+          // Check if the notice date includes the search date
+          return formattedNoticeDate === formattedSearchDate;
+        });
+      console.log('Filtered notices:', filteredNotices);
+      setSearchedNotices(filteredNotices);
+    } catch (error) {
+      console.error('Error searching notices: ', error);
+    }
   };
 
   return (
     <div className="notice-board-container">
       <h2 className="notice-board-title">Notice Board</h2>
+      {successMessage && <div className="success-message">{successMessage}</div>}
       <form className="notice-form" onSubmit={handleSubmit}>
         <input
           type="text"

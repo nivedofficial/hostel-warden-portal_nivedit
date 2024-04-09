@@ -26,7 +26,7 @@ const LaundrySchedule = () => <div>Laundry Schedule Page</div>;
 // const Attendance = () => <div>Attendance Page</div>;
 const HostelFees = () => <div>Hostel Fees Page</div>;
 const PeriodicShuffling = () => <div>Periodic Shuffling Page</div>;
-// const AdmissionApplications = () => <div>Admission Applications Page</div>;
+// const Rooms = () => <div>Admission Applications Page</div>;
 
 // Dashboard component
 const Dashboard = () => {

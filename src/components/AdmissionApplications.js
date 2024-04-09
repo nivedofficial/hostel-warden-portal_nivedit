@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { firestore } from '../firebaseConfig';
+import { firestore } from './firebaseConfig';
 import './StudentDetails.css';
 
 const AdmissionApplications = () => {

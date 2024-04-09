@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
-import { firestore } from '../firebaseConfig'; // Import your Firestore configuration
+import { firestore } from './firebaseConfig'; // Import your Firestore configuration
 import './noticeboard.css'; // Import your CSS file for styling
 
 const NoticeBoard = () => {

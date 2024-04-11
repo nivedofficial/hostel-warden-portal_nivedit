@@ -9,7 +9,6 @@ const NoticeBoard = () => {
   const [content, setContent] = useState('');
   const [searchDate, setSearchDate] = useState('');
   const [searchedNotices, setSearchedNotices] = useState([]);
-  const [successMessage, setSuccessMessage] = useState('');
 
   // Check if 'notices' collection exists, if not create it
   useEffect(() => {
@@ -39,17 +38,12 @@ const NoticeBoard = () => {
       const docRef = await addDoc(collection(firestore, 'notice'), noticeData);
       console.log('Notice written with ID: ', docRef.id);
       setNotices([...notices, noticeData]);
-      setSuccessMessage('Message sent successfully!');
     } catch (error) {
       console.error('Error adding notice: ', error);
     }
 
     setTitle('');
     setContent('');
-    // Clear success message after 3 seconds
-    setTimeout(() => {
-      setSuccessMessage('');
-    }, 3000);
   };
 
   const handleSearch = async () => {
@@ -83,7 +77,6 @@ const NoticeBoard = () => {
   return (
     <div className="notice-board-container">
       <h2 className="notice-board-title">Notice Board</h2>
-      {successMessage && <div className="success-message">{successMessage}</div>}
       <form className="notice-form" onSubmit={handleSubmit}>
         <input
           type="text"

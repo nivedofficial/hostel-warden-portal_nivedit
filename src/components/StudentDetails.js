@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './StudentDetails.css';
-// import {db} from './firebase'; // Importing the Firestore instance
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore } from './firebaseConfig'; // Importing the Firestore instance
 
 const StudentDetails = () => {
   const { roomNumber } = useParams();
@@ -19,23 +20,24 @@ const StudentDetails = () => {
     disability: ''
   });
 
-  // useEffect(() => {
-  //   const fetchStudentDetails = async () => {
-  //     try {
-  //       const querySnapshot = await db.collection("Users").get(); // Fetching data from the "Users" collection
-  //       const fetchedStudents = querySnapshot.docs.map(doc => ({
-  //         id: doc.id,
-  //         ...doc.data(),
-  //         disability: doc.data().Disability === 'Yes' ? true : false
-  //       }));
-  //       setStudents(fetchedStudents);
-  //     } catch (error) {
-  //       console.error("Error fetching students:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchStudentDetails = async () => {
+      try {
+        const studentsCollection = collection(firestore, 'Users');
+        const querySnapshot = await getDocs(studentsCollection); // Fetching data from the "Users" collection
+        const fetchedStudents = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          disability: doc.data().Disability === 'Yes' ? true : false
+        }));
+        setStudents(fetchedStudents);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
 
-  //   fetchStudentDetails();
-  // }, []);
+    fetchStudentDetails();
+  }, []);
 
   const handleDelete = (id) => {
     const updatedStudents = students.filter(student => student.id !== id);
@@ -104,7 +106,6 @@ const StudentDetails = () => {
         </div>
       )}
       <div className="student-page">
-        
         {students.map((student, index) => (
           <div className="student-box" key={student.id}>
             <div>

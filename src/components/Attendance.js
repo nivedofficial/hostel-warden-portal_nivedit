@@ -5,11 +5,12 @@ import './Attendance.css';
 
 const Attendance = () => {
   const [students, setStudents] = useState([]);
+  const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
 
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const studentsCollection = collection(firestore, 'Users'); // Assuming 'Users' is the collection name
+        const studentsCollection = collection(firestore, 'Users');
         const querySnapshot = await getDocs(studentsCollection);
         const fetchedStudents = querySnapshot.docs.map(doc => ({
           id: doc.id,
@@ -26,18 +27,39 @@ const Attendance = () => {
 
   const markAttendance = async (studentId, present) => {
     try {
-      const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
+      const today = new Date().toISOString().split('T')[0];
+      const attendanceRef = doc(firestore, 'attendance', today);
+      const attendanceDoc = await getDocs(attendanceRef);
+
+      const attendanceData = {
+        [studentId]: present
+      };
+
+      if (attendanceDoc.exists()) {
+        await setDoc(attendanceRef, { ...attendanceDoc.data(), ...attendanceData });
+      } else {
+        await setDoc(attendanceRef, attendanceData);
+      }
+    } catch (error) {
+      console.error('Error marking attendance:', error);
+    }
+  };
+
+  const handleSubmitAttendance = async () => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
       const attendanceRef = doc(firestore, 'attendance', today);
       const attendanceDoc = await getDocs(attendanceRef);
       
-      if (attendanceDoc.exists()) {
-        await setDoc(attendanceRef, { [studentId]: present }, { merge: true }); // Merge new attendance with existing
-      } else {
-        await setDoc(attendanceRef, { [studentId]: present }); // Create new attendance document
+      if (!attendanceDoc.exists()) {
+        alert('No attendance recorded for today!');
+        return;
       }
-      alert(`Attendance marked for student with ID ${studentId}`);
+
+      alert('Attendance submitted successfully!');
+      setAttendanceSubmitted(true);
     } catch (error) {
-      console.error('Error marking attendance:', error);
+      console.error('Error submitting attendance:', error);
     }
   };
 
@@ -68,6 +90,7 @@ const Attendance = () => {
           ))}
         </tbody>
       </table>
+      <button onClick={handleSubmitAttendance} disabled={attendanceSubmitted}>Submit Attendance</button>
     </div>
   );
 };

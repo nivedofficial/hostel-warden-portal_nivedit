@@ -399,7 +399,7 @@ color: #313630;
 
 .admission-num,
 .annual-income,
-.branch,
+.branch1,
 .contact-num,
 .dob,
 .distance,
@@ -433,7 +433,7 @@ color: #313630;
   top: 175px; /* Adjusted top position */
 }
 
-.branch {
+.branch1 {
   width: 400px;
   height: 18px;
   left: 28px;

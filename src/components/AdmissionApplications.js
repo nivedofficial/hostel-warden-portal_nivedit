@@ -33,7 +33,7 @@ const AdmissionApplications = () => {
           <div className='details'>
             <div className="admission-num"><span >Admission Number:</span> <span className="field-value">{student.AdmissionNum}</span></div>
             <div className="annual-income"><span >Annual Income:</span> <span className="field-value">{student.AnnualIncome}</span></div>
-            <div className="branch"><span >Branch:</span> <span className="field-value">{student.Branch}</span></div>
+            <div className="branch1"><span >Branch:</span> <span className="field-value">{student.Branch}</span></div>
             <div className="contact-num"><span >Contact Number:</span> <span className="field-value">{student.ContactNum}</span></div>
             <div className="dob"><span >Date of Birth:</span> <span className="field-value">{student.DOB}</span></div>
             <div className="distance"><span >Distance from College:</span> <span className="field-value">{student.Distance}</span></div>

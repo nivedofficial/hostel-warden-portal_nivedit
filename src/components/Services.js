@@ -44,7 +44,7 @@ const Dashboard = () => {
     { name: 'Permission Request', path: '/components/PermissionRequest', icon: <PermissionIcon className="permi-icons-dash" /> },
     { name: 'Laundry Schedule', path: '/laundry-schedule', icon: <LaundryIcon className="icons-dash" /> },
     { name: 'Notice Board', path: '/components/NoticeBoard', icon: <NoticeIcon className="icons-dash" /> },
-    { name: 'Attendance', path: '/componenets/Attendance' },
+    { name: 'Attendance', path: '/components/Attendance' },
     { name: 'Hostel Fees', path: '/hostel-fees', icon: <FeeIcon className="icons-dash" /> },
     { name: 'Periodic Shuffling', path: '/periodic-shuffling', icon: <PShuffleIcon className="icons-dash" /> },
     { name: 'Admission Applications', path: '/AdmissionApplications', icon: <ApplicationIcon className="icons-dash" /> },

@@ -1,49 +1,57 @@
-// src/components/Rooms.js
 import React, { useState, useEffect } from 'react';
 import './Room.css';
 import { Link } from 'react-router-dom';
-// import { firestore } from "../../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { RoomCreation } from './roomCreation/roomCreation';
-
-
-// const RoomDetails = ({ roomNumber }) => {
-//   // You can fetch room details based on roomNumber from your data source
-//   // For now, let's use placeholder content
-//   const placeholderContent = `Details for Room ${roomNumber}`;
-
-//   return <div>{placeholderContent}</div>;
-// };
-
-// const Room = ({ roomNumber }) => {
-//   return (
-//     <Link to={`/rooms/${roomNumber}`}>
-//       <div className="room-division">
-//         <span>Room {roomNumber}</span>
-//         <div className="arrow-mark">&#8594;</div>
-//       </div>
-//     </Link>
-//   );
-// };
+import { firestore } from './firebaseConfig';
 
 const Rooms = () => {
+
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(()=>{
+    const fetchRooms = async ()=>{
+      try{
+        const roomsCollection = collection(firestore, 'Rooms');
+        const querySnapshot = await getDocs(roomsCollection);
+        const fetchedRooms = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        fetchedRooms.sort((a, b) => {
+          // Extract the numeric portion of the roomId string
+          const numericA = parseInt(a.roomId.match(/\d+/)[0]);
+          const numericB = parseInt(b.roomId.match(/\d+/)[0]);
+        
+          // Compare the numeric portion
+          if (numericA < numericB) return -1;
+          if (numericA > numericB) return 1;
+        
+          // If numeric portions are equal, compare the whole string
+          return a.roomId.localeCompare(b.roomId);
+        });  
+        setRooms(fetchedRooms);
+      } catch(error){
+        console.error('Error fetching students:', error);
+      }
+    };
+    fetchRooms();
+  },[rooms])
 
   return (
     <div className='room_page'>
       <div className='room-heading'>ROOMS</div>
-      {/* Map over room data to dynamically generate room components */}
-{/* 
-      {rooms.map((room, index) => (
-        <div className="room" key={index}>
-          <div className="room_no">{room.roomNo}</div>
+      {rooms.map(room => (
+        <div className="room" key={room.id}>
+          <div className="room_no">{room.roomId}</div>
           <div className="stu_mai">
             {/* Link to dynamic routes based on room number */}
-            {/* <Link to={`/student-info/${room.roomNo}`} className="stu_data">Students Data</Link>
+            <Link to={`/student-info/${room.roomId}`} className="stu_data">Students Data</Link>
             <a href="/maintanence" className="maintanence">Maintanence</a>
           </div>
         </div>
-      ))}  */}
-      <RoomCreation/>
+      ))}
+      {/* <RoomCreation/>       */}
     </div>
   );
 };

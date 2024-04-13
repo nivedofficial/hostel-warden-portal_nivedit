@@ -41,7 +41,9 @@ const AdmissionApplications = () => {
             <div className="emergency-contact"><span >Emergency Contact:</span> <span className="field-value">{student.EmergencyContact}</span></div>
             <div className="guardian-name"><span >Guardian Name:</span> <span className="field-value">{student.GuardianName}</span></div>
             <div className="guardian-relation"><span >Guardian Relation:</span> <span className="field-value">{student.GuardianRelation}</span></div>
-            <div className="location"><span >Location:</span> <span className="field-value">{student.Location}</span></div>
+            <div className="location"><span >Address</span> <span className="field-value">{student.Address}</span></div>
+            <div className="location"><span >City:</span> <span className="field-value">{student.City}</span></div>
+            <div className="location"><span >State:</span> <span className="field-value">{student.State}</span></div>
           </div>
         </div>
       ))}

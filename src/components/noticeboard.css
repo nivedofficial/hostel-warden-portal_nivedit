@@ -58,9 +58,18 @@
     color: #666;
   }
   
-  .notice-title-input,
-  .notice-content-input {
+  .notice-title-input{
     width: 1000px; /* Set a fixed width for the input fields */
+    padding: 10px;
+    margin: 10px 10px 10px 0px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+
+  }
+  .notice-content-input {
+    width: 1000px;
+    height:100px; /* Set a fixed width for the input fields */
     padding: 10px;
     margin: 10px 10px 10px 0px;
     border-radius: 5px;

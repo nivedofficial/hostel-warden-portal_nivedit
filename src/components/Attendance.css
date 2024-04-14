@@ -1,48 +1,54 @@
 .attendance-page {
-    margin-top: 20px;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.attendance-message {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
   
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  tr:hover {
-    background-color: #ddd;
-  }
-  
-  label {
-    display: block;
-    cursor: pointer;
-  }
-  
-  input[type="checkbox"] {
-    margin-right: 5px;
-    cursor: pointer;
-  }
-  
-  .loading {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 18px;
-  }
-  
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+label {
+  margin-right: 10px;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

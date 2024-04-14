@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDoc,getDocs, doc, setDoc,updateDoc,increment } from 'firebase/firestore';
+import { collection, getDoc, getDocs, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
 import './Attendance.css';
 
@@ -12,10 +12,11 @@ const Attendance = () => {
     const fetchStudents = async () => {
       try {
         const studentsCollection = collection(firestore, 'Users');
-        const querySnapshot = await getDocs(studentsCollection); // Fix this line
+        const querySnapshot = await getDocs(studentsCollection);
         const fetchedStudents = querySnapshot.docs.map(doc => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
+          present: null // Initialize present state to null
         }));
         setStudents(fetchedStudents);
       } catch (error) {
@@ -26,38 +27,44 @@ const Attendance = () => {
     fetchStudents();
   }, []);
 
-  const markAttendance = async (studentId, present) => {
-    // Update the attendance for the student in the local state
-    setStudents(prevStudents =>
-        prevStudents.map(student =>
-            student.id === studentId ? { ...student, present } : student
-        )
-    );
+const markAttendance = async (studentId, present) => {
+  // Update the attendance for the student in the local state
+  setStudents(prevStudents =>
+    prevStudents.map(student =>
+      student.id === studentId ? { ...student, present } : student
+    )
+  );
 
+  try {
     const userRef = doc(firestore, 'Users', studentId);
-    try {
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-            const userData = userDoc.data();
-            let updatedAbsentDays = userData.consecutiveDaysAbsent || 0;
-            if (!present) {
-                // Student is absent, increment consecutiveDaysAbsent
-                updatedAbsentDays += 1;
-            } else {
-                // Student is present, reset consecutiveDaysAbsent if it's >= 5
-                if (updatedAbsentDays >= 5) {
-                    updatedAbsentDays = 0;
-                }
-            }
-            // Update the consecutiveDaysAbsent field
-            await updateDoc(userRef, { consecutiveDaysAbsent: updatedAbsentDays });
-            console.log('Consecutive days absent updated successfully.');
-        } else {
-            console.error('User document does not exist');
-        }
-    } catch (error) {
-        console.error('Error updating consecutiveDaysAbsent:', error);
+    const userDoc = await getDoc(userRef);
+    let consecutiveDaysAbsent = userDoc.data().consecutiveDaysAbsent;
+    let consecutive5DaysAbsent = userDoc.data().consecutive5DaysAbsent;
+
+    if (present === false) {
+      // If student is absent, increment consecutiveDaysAbsent locally
+      consecutiveDaysAbsent++;
+      if (consecutiveDaysAbsent >= 5) {
+        // Reset consecutiveDaysAbsent and increment consecutive5DaysAbsent
+        consecutiveDaysAbsent = 0;
+        consecutive5DaysAbsent++;
+      }
+      // Update the document with the new values
+      await updateDoc(userRef, {
+        consecutiveDaysAbsent,
+        consecutive5DaysAbsent
+      });
+      console.log('Consecutive days absent incremented for student:', studentId);
+    } else if (present === true) {
+      // If student is present, reset consecutiveDaysAbsent to 0
+      await updateDoc(userRef, {
+        consecutiveDaysAbsent: 0
+      });
+      console.log('Consecutive days absent reset for student:', studentId);
     }
+  } catch (error) {
+    console.error('Error updating consecutiveDaysAbsent:', error);
+  }
 };
 
   const handleSubmitAttendance = async () => {
@@ -67,7 +74,7 @@ const Attendance = () => {
       const attendanceDoc = await getDoc(attendanceRef);
 
       const attendanceData = students.reduce((acc, student) => {
-        acc[student.id] = student.present || false;
+        acc[student.id] = student.present !== null ? student.present : false;
         return acc;
       }, {});
 
@@ -103,7 +110,16 @@ const Attendance = () => {
                   Present
                   <input
                     type="checkbox"
-                    onChange={e => markAttendance(student.id, e.target.checked)}
+                    checked={student.present === true}
+                    onChange={() => markAttendance(student.id, true)}
+                  />
+                </label>
+                <label>
+                  Absent
+                  <input
+                    type="checkbox"
+                    checked={student.present === false}
+                    onChange={() => markAttendance(student.id, false)}
                   />
                 </label>
               </td>
@@ -119,4 +135,3 @@ const Attendance = () => {
 };
 
 export default Attendance;
-

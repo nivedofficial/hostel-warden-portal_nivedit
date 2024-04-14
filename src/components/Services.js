@@ -89,7 +89,9 @@ const Services = () => {
         <div className="header">
           <h1>Hostel Management Portal</h1>
         </div>
-        <Dashboard />
+        <Switch>
+          <Route path="/" component={Dashboard} />
+        </Switch>
       </div>
     </Router>
   );

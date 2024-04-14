@@ -1,21 +1,44 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Services from './Services'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { firestore } from './firebaseConfig'; // Import your firebaseConfig.js
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [signInError, setSignInError] = useState('');
   const history = useHistory();
+  const auth = getAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Your authentication logic here...
+    // Reset previous errors
+    setEmailError('');
+    setPasswordError('');
+    setSignInError('');
 
-    // Assuming authentication is successful
-    history.push('/Services');
+    // Form validation
+    if (!email.trim()) {
+      setEmailError('Please enter your email');
+      return;
+    }
+
+    if (!password.trim()) {
+      setPasswordError('Please enter your password');
+      return;
+    }
+
+    // Attempt sign-in
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      // If sign-in successful, redirect to Services
+      history.push('/Services');
+    } catch (error) {
+      setSignInError(error.message);
+    }
   };
 
   return (
@@ -39,6 +62,7 @@ const SignIn = () => {
         />
         {passwordError && <div className="error">{passwordError}</div>}
         <button type="submit">Sign in</button>
+        {signInError && <div className="error">{signInError}</div>}
       </form>
       <Link to="/signup" className="btn btn-primary">
         Sign up

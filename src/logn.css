@@ -97,6 +97,7 @@ input {
 	position: relative;
 	overflow: hidden;
 	width: 768px;
+	height:600px;
 	max-width: 100%;
 	min-height: 480px;
 }

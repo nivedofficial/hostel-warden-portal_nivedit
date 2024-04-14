@@ -19,22 +19,6 @@
 
 }
 
-.student-box{
-    /* Frame 14 */
-    box-sizing: border-box;
-
-    position: relative;
-    width: 341px;
-    height: 403px;
-
-    margin: 20px;
-    
-    background: #FFFFFF;
-    border: 0.860759px dashed #B6B6B6;
-    border-radius: 34.4304px;
-    
-
-}
 
 .image{
     /* Frame 56 */
@@ -58,8 +42,8 @@
     text-align: left;
     width: 200.39px;
     height: 28px;
-    left: 136px;
-    top: 18px;
+    /* left: 146px;
+    top: 50px; */
 
     font-family: 'Satoshi Variable';
     font-style: normal;
@@ -385,9 +369,9 @@ color: #313630;
 .student-box {
   box-sizing: border-box;
   position: relative;
-  width: 400px;
-  height: 650px; /* Adjusted height to accommodate varying content */
-  margin: 20px;
+  width: 430px;
+  height: 750px; /* Adjusted height to accommodate varying content */
+  margin: 15px;
   background: #FFFFFF;
   border: 0.860759px dashed #B6B6B6;
   border-radius: 34.4304px;
@@ -407,7 +391,10 @@ color: #313630;
 .emergency-contact,
 .guardian-name,
 .guardian-relation,
-.location {
+.location,
+.city,
+.address,
+.state {
   
   position: relative;
   text-align: left;
@@ -513,4 +500,26 @@ color: #313630;
   display: flex;
   flex-direction: column;
  gap:-2px
+}
+
+.address{
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 378px;
+}
+
+.city{
+
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 400px;
+}
+
+.state{
+  width: 400px;
+  height: 18px;
+  left: 28px;
+  top: 420px;
 }

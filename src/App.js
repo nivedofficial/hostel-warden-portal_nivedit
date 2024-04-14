@@ -9,7 +9,7 @@ const App = () => {
       <Switch>
         <Route exact path="/">
           <h1>Welcome to our website!</h1>
-          <p>Please sign in or sign up to access our services.</p>
+          <p>Begin your Journey</p>
           <Link to="/signin" className="btn btn-primary">
             Sign in
           </Link>

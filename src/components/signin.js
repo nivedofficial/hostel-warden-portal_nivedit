@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import './signin.css'
 import { firestore } from './firebaseConfig'; // Import your firebaseConfig.js
 
 const SignIn = () => {
@@ -42,32 +43,35 @@ const SignIn = () => {
   };
 
   return (
-    <div className="main-container">
-      <h1>Sign in</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {emailError && <div className="error">{emailError}</div>}
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {passwordError && <div className="error">{passwordError}</div>}
-        <button type="submit">Sign in</button>
-        {signInError && <div className="error">{signInError}</div>}
-      </form>
-      <Link to="/signup" className="btn btn-primary">
-        Sign up
-      </Link>
+    <div className="container">
+      <div className="box">
+        <h1>Sign in</h1>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {emailError && <div className="error">{emailError}</div>}
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {passwordError && <div className="error">{passwordError}</div>}
+          <button type="submit">Sign in</button>
+          {signInError && <div className="error">{signInError}</div>}
+        </form>
+        <Link to="/signup" className="btn btn-primary">
+          Sign up
+        </Link>
+      </div>
     </div>
+
   );
 };
 

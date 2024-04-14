@@ -10,20 +10,7 @@ body {
   background-color: #f6f6ee;
 }
 
-.header {
-  background-color: #F6F6EF;
-  padding-top: 7px;
-  padding-left: 40px;
-  padding-right: 1000px; /* This large padding is just for demonstration */
-  color: #000000;
-  border-bottom: 1px solid #C2C2C2;
-  font-family: 'Satoshi Variable';
-  font-style: normal;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .icon-logo{
   padding-left: 44px;
   padding-top: 51px;
@@ -92,4 +79,55 @@ body {
   .dashboard-nav {
     width: 100%;
   }
+}
+.header {
+  background-color: #F6F6EF;
+  padding-top: 7px;
+  padding-left: 40px;
+  padding-right: 60px; 
+  color: #000000;
+  border-bottom: 1px solid #C2C2C2;
+  font-family: 'Satoshi Variable';
+  font-style: normal;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+button.logout {
+  display: flex;
+  align-items: center;
+  margin-left: 780px;
+  font-family: 'Satoshi Variable';
+  font-style: normal;
+  font-size: medium;
+  color: #f6f6ee;
+  font-weight: bold;
+  border: 2px solid #C2C2C2;
+  background-color: rgb(255, 89, 89);
+  border-radius: 10px;
+  width: 155px; /* Adjusted width to accommodate the gap */
+  height: 30px;
+  padding: 20px ; /* Adjusted padding to create space between icon and text */
+  gap: 15px; /* Add some space between the icon and text */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+button.logout:hover,
+button.logout:active {
+  background-color: #f6f6ee;
+  color: rgb(255, 89, 89);
+  border-color: rgb(255, 89, 89);
+}
+
+button.logout:hover .icolog,
+button.logout:active .icolog {
+  fill: rgb(255, 89, 89);
+}
+
+.icolog {
+  height: 20px;
+  width: 20px;
+  transition: fill 0.2s ease-in-out;
+  fill: #f6f6ee;
 }

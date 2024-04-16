@@ -2,9 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
 import './StudentDetails.css';
+import pincode from "pincode-distance"
+
 
 const AdmissionApplications = () => {
   const [students, setStudents] = useState([]);
+  const Pincode = new pincode();
+  const distance = Pincode.getDistance("689121","690514" );
+  console.log('Distance is :', distance);
+
 
   useEffect(() => {
     const fetchStudents = async () => {

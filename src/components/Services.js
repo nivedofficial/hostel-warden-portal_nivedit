@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom';
 import './Services.css';
 import Rooms from './Rooms';
@@ -18,6 +18,10 @@ import PermissionRequest from './PermissionRequest';
 import AdmissionApplications from './AdmissionApplications';
 import Attendance from './Attendance';
 import { getAuth, signOut } from 'firebase/auth';
+import { firestore } from './firebaseConfig';
+import { updateDoc, collection, getDocs } from "firebase/firestore";
+import pincode from "pincode-distance";
+
 
 const LaundrySchedule = () => <div>Laundry Schedule Page</div>;
 const HostelFees = () => <div>Hostel Fees Page</div>;
@@ -26,6 +30,12 @@ const PeriodicShuffling = () => <div>Periodic Shuffling Page</div>;
 const Dashboard = () => {
   const [activeLink, setActiveLink] = useState(0);
   const history = useHistory();
+
+  useEffect(() => {
+    // Set active link state to the index of the Rooms option
+    console.log('Setting active link to Rooms');
+    setActiveLink(options.findIndex(option => option.path === '/components/Rooms'));
+  }, []);
 
   const handleLinkClick = (index) => {
     setActiveLink(index);
@@ -76,6 +86,13 @@ const Dashboard = () => {
 const Services = () => {
   const history = useHistory();
 
+  useEffect(() => {
+    // Calculate distance and update Firestore when component mounts
+    calculateDistanceAndUpdateFirestore();
+    // const distance = Pincode.getDistance("625147", "689121");
+    // console.log(distance)
+  }, []);
+
   const handleLogout = async () => {
     const auth = getAuth();
     try {
@@ -84,6 +101,30 @@ const Services = () => {
     } catch (error) {
       console.error('Error signing out:', error);
     }
+  };
+
+  const Pincode = new pincode();
+
+
+  const calculateDistanceAndUpdateFirestore = async () => {
+    const studentsCollection = collection(firestore, 'Users'); 
+    const querySnapshot = await getDocs(studentsCollection);
+    querySnapshot.forEach(async (doc) => {
+      const studentData = doc.data();
+      // console.log(studentData.Pincode);
+      const distance = await calculateDistance(studentData.Pincode); // Calculate distance using pincode-distance package
+      // Update Firestore document with distance field
+      await updateDoc(doc.ref, { distance : distance });
+    });
+  };
+
+  const calculateDistance = async (studentPincode) => {
+    // Calculate distance using 'pincode-distance' package
+    // console.log(studentPincode);
+    const distance = Pincode.getDistance(studentPincode, "689121");
+    console.log(distance);
+    // Replace the above lines with actual usage of 'pincode-distance' package
+    return distance; // Dummy distance for testing
   };
 
   return (

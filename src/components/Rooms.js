@@ -62,7 +62,7 @@ const Rooms = () => {
           </div>
         </div>
       ))}
-      <RoomCreation/>
+      {/* <RoomCreation/> */}
     </div>
   );
 };

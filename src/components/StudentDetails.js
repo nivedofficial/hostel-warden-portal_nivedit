@@ -23,14 +23,14 @@ const StudentDetails = () => {
   useEffect(() => {
     const fetchStudentDetails = async () => {
       try {
-        const studentsCollection = collection(firestore, 'Users');
-        const querySnapshot = await getDocs(studentsCollection); // Fetching data from the "Users" collection
-        const fetchedStudents = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-          disability: doc.data().Disability === 'Yes' ? true : false
-        }));
-        setStudents(fetchedStudents);
+        const roomRef = collection(firestore, 'Rooms');
+        const roomSnapshot = await getDocs(roomRef);
+        roomSnapshot.forEach(roomDoc => {
+          const roomData = roomDoc.data();
+          if (roomData.roomId === roomNumber) {
+            setStudents(roomData.occupants);
+          }
+        });
       } catch (error) {
         console.error("Error fetching students:", error);
       }
@@ -111,16 +111,13 @@ const StudentDetails = () => {
             <div>
               {showDeleteButtons && <button className='delete' onClick={() => handleDelete(student.id)}>X</button>}
               <div className="image"></div>
-              <div className="name">{student.name}</div>
-              <div className="age">DOB: {student.age}</div>
-              <div className="phone">ContactNum: {student.phone}</div>
+              <div className="name">{student.Name}</div>
+              <div className="age">DOB: {student.DOB}</div>
+              <div className="phone">ContactNum: {student.ContactNum}</div>
             </div>
             <div>
-              <div className="address">Location: {student.address}</div>
-              <div className="semester">Semester: {student.semester}</div>
-              <div className="batch">Branch: {student.batch}</div>
-              <div className="disability">Disability: {student.disability ? "Yes" : "No"}</div>
-              <div className="gender">Gender: {student.gender}</div>
+              <div className="address">Address: {student.Address}</div>
+              <div className="disability">Disability: {student.isDisabled ? "Yes" : "No"}</div>
             </div>
           </div>
         ))}

@@ -2,6 +2,7 @@ import { Route, Switch,Link } from "react-router-dom";
 import SignIn from "./components/signin";
 import SignUp from "./components/signup";
 import Services from "./components/Services";
+import Rooms from "./components/Rooms";
 
 const App = () => {
   return (
@@ -26,6 +27,10 @@ const App = () => {
         <Route path="/signup">
           <SignUp />
         </Route>
+        {/* <Route path="/components/Rooms">
+          <Rooms/>
+        </Route> */}
+
       </Switch>
     </div>
   );

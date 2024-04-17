@@ -114,17 +114,17 @@ const Services = () => {
       // console.log(studentData.Pincode);
       const distance = await calculateDistance(studentData.Pincode); // Calculate distance using pincode-distance package
       // Update Firestore document with distance field
-      await updateDoc(doc.ref, { distance : distance });
+      await updateDoc(doc.ref, { 
+        distance : distance,
+        isAllocated : false,
+       });
     });
   };
 
   const calculateDistance = async (studentPincode) => {
-    // Calculate distance using 'pincode-distance' package
-    // console.log(studentPincode);
     const distance = Pincode.getDistance(studentPincode, "689121");
     console.log(distance);
-    // Replace the above lines with actual usage of 'pincode-distance' package
-    return distance; // Dummy distance for testing
+    return distance; 
   };
 
   return (

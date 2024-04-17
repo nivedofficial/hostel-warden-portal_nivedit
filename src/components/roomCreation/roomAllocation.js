@@ -25,32 +25,50 @@ const RoomAllocation = ()=>{
             const nonAllocatedStudents = students.filter(student => !student.isAllocated);
       
 
-        const sortedStudents = nonAllocatedStudents.sort((a, b) => {
-            // Implement sorting logic based on the provided criteria
-            // Return -1 if a should come before b, 1 if b should come before a, or 0 if equal
-            // Example:
-            if (a.isDisabled && !b.isDisabled) {
-              return -1; // isDisabled students first
-            }
-            else if (!a.isDisabled && b.isDisabled) {
-              return 1;
-            } 
-            if (a.State !== 'Kerala' && b.State === 'Kerala') {
-              return -1;
-          } else if (a.State === 'Kerala' && b.State !== 'Kerala') {
-              return 1;
-          } else if (a.State === 'Kerala' && b.State === 'Kerala') {
-              if (a.AnnualIncome < b.AnnualIncome) {
-                  return 1;
-              } else if (a.AnnualIncome > b.AnnualIncome) {
-                  return -1;
-              }
-          }        
-            // Implement additional sorting criteria
-            // Return 0 if both are equal based on the sorting criteria
-            return 0;
-          });
-
+            const sortedStudents = nonAllocatedStudents.sort((a, b) => {
+                // Sort disabled students first
+                if (a.isDisabled && !b.isDisabled) {
+                    return -1;
+                } else if (!a.isDisabled && b.isDisabled) {
+                    return 1;
+                }
+            
+                // Sort by state: Kerala first
+                if (a.State !== 'Kerala' && b.State === 'Kerala') {
+                    return -1;
+                } else if (a.State === 'Kerala' && b.State !== 'Kerala') {
+                    return 1;
+                }
+            
+                // For students with distance greater than 30, sort by annual income
+                if (a.distance > 30 && b.distance > 30) {
+                    if (a.AnnualIncome < b.AnnualIncome) {
+                        return 1;
+                    } else if (a.AnnualIncome > b.AnnualIncome) {
+                        return -1;
+                    }
+                } 
+                else if (a.distance > 30 && b.distance < 30){
+                    return -1;
+                }
+                else if(a.distance < 30 && b.distance > 30 ){
+                    return 1;
+                }
+                else {
+                    // For students with distance less than or equal to 30, sort by distance
+                    if (a.distance < b.distance) {
+                        return 1;
+                    } else if (a.distance > b.distance) {
+                        return -1;
+                    }
+                }
+            
+                // Add fallback conditions or handle equality cases if needed
+            
+                // If all sorting criteria are equal, maintain original order
+                return 0;
+            });
+            
           sortedStudents.map((student)=>{
             console.log(student.Name);
           })
@@ -64,8 +82,9 @@ const RoomAllocation = ()=>{
                       student.isAllocated = true;
                       student.RoomId = room.roomId;
                       room.occupants.push(student);
+                      room.isFilled = (room.occupants.length == 2) ? true : false ;
                       const roomDocRef = doc(firestore, 'Rooms', room.id);
-                      batch.update(roomDocRef, { occupants: room.occupants }); // Update students array for the room
+                      batch.update(roomDocRef, { occupants: room.occupants, isFilled : room.isFilled }); // Update students array for the room
                       break;
                   }
               }

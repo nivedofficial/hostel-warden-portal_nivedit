@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { RoomCreation } from './roomCreation/roomCreation';
 import { firestore } from './firebaseConfig';
 import RoomAllocation from './roomCreation/roomAllocation';
+import StudentDetails from './StudentDetails';
 
 export const fetchRooms = async () => {
   try {
@@ -35,6 +36,7 @@ export const fetchRooms = async () => {
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
+  const [isvisible, SetIsvisible] = useState({bool:true,roomId:""});
 
   useEffect(() => {
     const loadRooms = async () => {
@@ -48,21 +50,37 @@ const Rooms = () => {
     loadRooms();
   }, []);
 
+  const handleVisibility = (roomId)=>{
+    SetIsvisible({
+      bool : false,
+      roomId: roomId,
+    });
+  }
+
   return (
-    <div className='room_page'>
-      <RoomAllocation/>
-      <div className='room-heading'>ROOMS</div>
-      {rooms.map(room => (
-        <div className="room" key={room.id}>
-          <div className="room_no">{room.roomId}</div>
-          <div className="stu_mai">
-            {/* Link to dynamic routes based on room number */}
-            <Link to={`/student-info/${room.roomId}`} className="stu_data">Students Data</Link>
-            <a href="/maintanence" className="maintanence">Maintanence</a>
-          </div>
+  
+    <div >
+      {isvisible.bool ? (
+        <div className='room_page'>
+          {/* <RoomAllocation /> */}
+          <div className='room-heading'>ROOMS</div>
+          {rooms.map(room => (
+            <div className="room" key={room.id}>
+              <div className="room_no">{room.roomId}</div>
+              <div className="stu_mai">
+                {/* Link to dynamic routes based on room number */}
+                <div className="stu_data" onClick={() => handleVisibility(room.roomId)}>Students Data</div>
+                <a href="/maintanence" className="maintanence">Maintanence</a>
+              </div>
+            </div>
+          ))} 
+          {/* <RoomCreation/> */}
+
         </div>
-      ))}
-      {/* <RoomCreation/> */}
+      ): (
+        <StudentDetails roomId = {isvisible.roomId} />
+      )}
+      
     </div>
   );
 };

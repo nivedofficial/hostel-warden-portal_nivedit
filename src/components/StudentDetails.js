@@ -4,8 +4,8 @@ import './StudentDetails.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from './firebaseConfig'; // Importing the Firestore instance
 
-const StudentDetails = () => {
-  const { roomNumber } = useParams();
+const StudentDetails = (props) => {
+  const roomNumber  = props.roomId;
   const [students, setStudents] = useState([]);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
   const [showAddUserForm, setShowAddUserForm] = useState(false);

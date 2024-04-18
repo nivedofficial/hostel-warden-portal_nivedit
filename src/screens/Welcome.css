@@ -1,0 +1,58 @@
+@import url('https://fonts.cdnfonts.com/css/satoshi');
+
+
+.homebox {
+    display: flex;
+    
+   
+    height: 90vh; /* Adjust as per your requirement */
+    width: 95%;
+    background-color: rgb(236, 236, 236);
+    border-radius: 30px; /* Adjust the radius for desired curve */
+    margin: auto; /* Center horizontally */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.main-containerw {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as per your requirement */
+  }
+  
+
+  
+  .buttonsw {
+    margin-top: 20px;
+  }
+  
+  .btnw {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primaryw{
+    background-color: #007bff;
+  }
+  
+  .btn-primaryw:hover {
+    background-color: #0056b3;
+  }
+  
+
+  .hostel{
+  font-family: 'Satoshi', sans-serif;;
+  font-size: 130px;
+  font-weight: 700;
+  margin: 70px;
+  }

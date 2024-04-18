@@ -2,7 +2,7 @@
 	box-sizing: border-box;
 }
 .body{
-	background: #f6f5f7;
+	background: #f6f7f5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,7 +111,10 @@
 }
 
 .signin-container {
-	background-color: #fff;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+	background-color: #00c22a;
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
@@ -124,6 +127,7 @@
 }
 
 .signin-form-container {
+	flex: 1;
 	position: absolute;
 	top: 0;
 	height: 100%;
@@ -272,3 +276,56 @@
     color: #3c97bf;
     text-decoration: none;
 }
+.rightside {
+    margin-top: 100px;
+    margin-left: 390px;
+	margin-bottom: 150px;
+    font-size: 30px;
+    font-weight: 550;
+    color: #00b409;
+    width: 200px;
+    padding: 20px;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    animation: fall 5s ease infinite; /* Animation called "fall" with duration 2s and infinite loop */
+}
+.rightside1 {
+    margin-top: -120px;
+    margin-left: 390px;
+	margin-bottom: 40px;
+    font-size: 30px;
+    font-weight: 550;
+    color: #00b409;
+    width: 200px;
+    padding: 20px;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    animation: fall 5s ease infinite; /* Animation called "fall" with duration 2s and infinite loop */
+}
+
+.rightside2 {
+    margin-top: -10px;
+    margin-left: 390px;
+    font-size: 30px;
+    font-weight: 550;
+    color: #00b409;
+    width: 200px;
+    padding: 20px;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    animation: fall 5s ease infinite; /* Animation called "fall" with duration 2s and infinite loop */
+}
+
+
+@keyframes fall {
+    0%, 100% {
+        transform: translateY(-100%); /* Initial and final position, above the viewport */
+        opacity: 0; /* Start and end with opacity 0 */
+    }
+    50% {
+        transform: translateY(0); /* Bounce down to original position */
+        opacity: 1; /* Fully visible */
+    }
+}
+
+

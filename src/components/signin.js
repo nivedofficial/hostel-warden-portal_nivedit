@@ -43,51 +43,53 @@ const SignIn = () => {
   };
 
   return (
-    <div className='body'>
-      <div className="signin-container">
-        {/* Image container */}
-        <div className="image-container">
-          <img src="your_image_path.jpg" alt="Your Image" className="image" />
+<div className='body'>
+  <div className="signin-container">
+    <div className="signin-form-container signin-sign-in-container">
+      <form onSubmit={handleSubmit} className="signin-form">
+        <h1 className="signin-h1">Sign in</h1>
+        <div className="signin-social-container">
+          <a href="#" className="signin-social"><i className="fab fa-facebook-f"></i></a>
+          <a href="#" className="signin-social"><i className="fab fa-google-plus-g"></i></a>
+          <a href="#" className="signin-social"><i className="fab fa-linkedin-in"></i></a>
         </div>
-
-        <div className="signin-form-container signin-sign-in-container">
-          <form onSubmit={handleSubmit} className="signin-form">
-            <h1 className="signin-h1">Sign in</h1>
-            <div className="signin-social-container">
-              <a href="#" className="signin-social"><i className="fab fa-facebook-f"></i></a>
-              <a href="#" className="signin-social"><i className="fab fa-google-plus-g"></i></a>
-              <a href="#" className="signin-social"><i className="fab fa-linkedin-in"></i></a>
-            </div>
-            <span className="signin-span">or use your account</span>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="signin-input"
-            />
-            {emailError && <div className="error">{emailError}</div>}
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="signin-input"
-            />
-            {passwordError && <div className="error">{passwordError}</div>}
-            <a href="#" className="signin-a">Forgot your password?</a>
-            <button type="submit" className="signin-button">Sign In</button>
-            {signInError && <div className="error">{signInError}</div>}
-            <div className="signup-link-container">
+        <span className="signin-span">or use your account</span>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="signin-input"
+        />
+        {emailError && <div className="error">{emailError}</div>}
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="signin-input"
+        />
+        {passwordError && <div className="error">{passwordError}</div>}
+        <a href="#" className="signin-a">Forgot your password?</a>
+        <button type="submit" className="signin-button">Sign In</button>
+        {signInError && <div className="error">{signInError}</div>}
+        <div className="signup-link-container">
           <Link to="/signup" className="create-button">Create User</Link>
         </div>
-          </form>
-        </div>
-
-        {/* Link to sign up page */}
-        
-      </div>
+      </form>
     </div>
+    <div className="image-container">
+      <div className='rightside'>Hostel</div>
+      <div className='rightside1'>Management</div>
+      <div className='rightside2'>Made easy</div>
+      
+      
+    </div>
+    {/* Image container */}
+   
+  </div>
+</div>
+
   );
 };
 

@@ -26,23 +26,45 @@
 
   
   .buttonsw {
-    margin-top: 20px;
+    margin-top: 15px;
+    margin-left: 85px;
+    
   }
   
   .btnw {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 18px 100px;
     margin-right: 10px;
     text-decoration: none;
     color: #fff;
     background-color: #007bff;
-    border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
   }
+
+  .btnwup {
+    display: inline-block;
+    padding: 18px 100px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #ebebeb;
+    border: 2px solid #0065d1; /* Add style and color */
+    border-radius: 50px;
+    cursor: pointer;
+}
+
   
   .btn-primaryw{
     background-color: #007bff;
+  }
+
+  .btn-primarywup{
+    background-color: #e6e6e6;
+  }
+  
+  .btn-primarywup:hover {
+    background-color: #0065d1;
   }
   
   .btn-primaryw:hover {
@@ -51,8 +73,20 @@
   
 
   .hostel{
-  font-family: 'Satoshi', sans-serif;;
+  font-family: 'Satoshi', sans-serif;
   font-size: 130px;
   font-weight: 700;
   margin: 70px;
+  line-height: 130px;
+  }
+
+  .made{
+    font-family: 'Satoshi', sans-serif;
+    font-size: 70px;
+    font-weight: 500;
+    margin-left: 80px;
+    margin-top:-50px;
+    color: rgb(56, 56, 56);
+    line-height: 130px;
+  
   }

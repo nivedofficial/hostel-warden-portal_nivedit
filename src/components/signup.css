@@ -1,0 +1,73 @@
+.sign-up-form {
+    width: 80%; /* Adjust the width as needed */
+    max-width: 400px; /* Limit the maximum width */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sign-up-form__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .sign-up-form__group {
+    margin-bottom: 20px;
+  }
+  
+  .sign-up-form__group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .sign-up-form__group input[type="text"],
+  .sign-up-form__group input[type="password"],
+  .sign-up-form__group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .sign-up-form__error {
+    color: red;
+    margin-top: 5px;
+  }
+  
+  .sign-up-form__button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sign-up-form__button:hover {
+    background-color: #0056b3;
+  }
+  
+  .sign-up-form__link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .sign-up-form__link:hover {
+    text-decoration: underline;
+  }
+  
+  .upbody{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0; /* Remove default body margin */
+  }

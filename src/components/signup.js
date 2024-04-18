@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { getAuth } from "firebase/auth";
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from './firebaseConfig'; // Import your firebaseConfig.js
+import './signup.css'
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -82,6 +83,7 @@ const SignUp = () => {
   };
 
   return (
+    <div className='upbody'>
     <div className="sign-up-form">
       <h1 className="sign-up-form__title">Sign Up</h1>
       <form onSubmit={handleSubmit}>
@@ -116,6 +118,7 @@ const SignUp = () => {
       </form>
       <Link to="/signin" className="sign-up-form__link">Already have an account? Sign in</Link>
       {signupError && <p className="sign-up-form__error">{signupError}</p>}
+    </div>
     </div>
   );
 };

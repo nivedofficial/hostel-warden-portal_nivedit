@@ -7,6 +7,7 @@ import NoticeBoard from './NoticeBoard';
 import PermissionRequest from './PermissionRequest';
 import AdmissionApplications from './AdmissionApplications';
 import Attendance from './Attendance';
+import LaundryBooking from './Laundry.js';
 import { ReactComponent as Icon } from './icons-svg/icon.svg';
 import { ReactComponent as RoomsIcon } from './icons-svg/rooms.svg';
 import { ReactComponent as ApplicationIcon } from './icons-svg/application.svg';
@@ -24,7 +25,7 @@ import pincode from "pincode-distance";
 
 const Services = () => {
   const [activeOption, setActiveOption] = useState('Rooms');
-  const LaundrySchedule = () => <div>Laundry Schedule Page</div>;
+  // const LaundrySchedule = () => <div>Laundry Schedule Page</div>;
   const HostelFees = () => <div>Hostel Fees Page</div>;
   const PeriodicShuffling = () => <div>Periodic Shuffling Page</div>;
   const history = useHistory();
@@ -32,7 +33,7 @@ const Services = () => {
   const options = [
     { name: 'Rooms', component: <Rooms />, icon: <RoomsIcon className="icons-dash" /> },
     { name: 'Permission Request', component: <PermissionRequest />, icon: <PermissionIcon className="permi-icons-dash" /> },
-    { name: 'Laundry Schedule', component: <LaundrySchedule />, icon: <LaundryIcon className="icons-dash" /> },
+    { name: 'Laundry Schedule', component: <LaundryBooking />, icon: <LaundryIcon className="icons-dash" /> },
     { name: 'Notice Board', component: <NoticeBoard />, icon: <NoticeIcon className="icons-dash" /> },
     { name: 'Attendance', component: <Attendance />, icon: <AttendanceIcon className="icons-dash" /> },
     { name: 'Hostel Fees', component: <HostelFees />, icon: <FeeIcon className="icons-dash" /> },

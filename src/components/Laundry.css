@@ -1,0 +1,40 @@
+.booking-page {
+    font-family: "Satoshi Variable", sans-serif;
+    padding: 30px 40px;
+  }
+  
+  .date-container {
+    margin-bottom: 20px;
+  }
+  
+  .date-title {
+    font-size: 24px;
+  }
+  
+  .booking-box {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .booking-details {
+    margin-bottom: 10px;
+  }
+  
+  .booking-details div {
+    margin-bottom: 5px;
+  }
+  
+  .booking-details div strong {
+    font-weight: bold;
+  }
+  
+  .booking-details div.highlight {
+    background-color: #ffff00; /* Change background color to yellow */
+    font-weight: bold; /* Make the text bold */
+    border-radius: 5px; /* Add some border radius for a rounded look */
+    padding: 3px 5px; /* Add padding for better readability */
+  }
+  

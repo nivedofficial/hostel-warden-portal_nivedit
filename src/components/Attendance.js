@@ -71,6 +71,7 @@ const markAttendance = async (studentId, present) => {
     try {
       const today = new Date().toISOString().split('T')[0];
       const attendanceRef = doc(firestore, 'Attendance', today);
+      console.log(today)
       const attendanceDoc = await getDoc(attendanceRef);
 
       const attendanceData = students.reduce((acc, student) => {

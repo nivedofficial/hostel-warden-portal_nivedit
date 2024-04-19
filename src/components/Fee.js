@@ -63,36 +63,32 @@ const FeePayment = () => {
   };
 
   return (
-    <div style={{ margin: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Fee Payment</h2>
-      <form style={{ marginBottom: '20px' }}>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="monthlyFee" style={{ marginRight: '10px' }}>Monthly Fee:</label>
-          <input
-            type="number"
-            id="monthlyFee"
-            value={monthlyFee}
-            onChange={(e) => setMonthlyFee(Number(e.target.value))}
-            required
-          />
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="selectedMonth" style={{ marginRight: '10px' }}>Month:</label>
-          <input
-            type="text"
-            id="selectedMonth"
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            required
-          />
-        </div>
-        <button type="button" onClick={handleSubmit} style={{ padding: '5px 10px', borderRadius: '5px', backgroundColor: '#007bff', color: '#fff', border: 'none' }}>SUBMIT</button>
+    <div>
+      <h2>Fee Payment</h2>
+      <form>
+        <label htmlFor="monthlyFee">Monthly Fee:</label>
+        <input
+          type="number"
+          id="monthlyFee"
+          value={monthlyFee}
+          onChange={(e) => setMonthlyFee(Number(e.target.value))}
+          required
+        />
+        <label htmlFor="selectedMonth">Month:</label>
+        <input
+          type="text"
+          id="selectedMonth"
+          value={selectedMonth}
+          onChange={(e) => setSelectedMonth(e.target.value)}
+          required
+        />
+        <button type="button" onClick={handleSubmit}>SUBMIT</button>
       </form>
       <div>
-        <h3 style={{ marginBottom: '10px' }}>Students Fee Payments</h3>
-        <ul style={{ listStyleType: 'none', padding: 0 }}>
+        <h3>Students Fee Payments</h3>
+        <ul>
           {students.map(student => (
-            <li key={student.id} style={{ marginBottom: '5px' }}>
+            <li key={student.id}>
               <strong>{student.Name}</strong>: {calculateFee(monthlyFee, student.consecutive5DaysAbsent)}
             </li>
           ))}

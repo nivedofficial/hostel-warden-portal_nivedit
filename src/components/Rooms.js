@@ -17,15 +17,16 @@ export const fetchRooms = async () => {
     }));
     fetchedRooms.sort((a, b) => {
       // Extract the numeric portion of the roomId string
-      const numericA = parseInt(a.roomId.match(/\d+/)[0]);
-      const numericB = parseInt(b.roomId.match(/\d+/)[0]);
+      const [prefixA, numericA] = a.roomId.match(/([A-Z]+)(\d+)/).slice(1);
+      const [prefixB, numericB] = b.roomId.match(/([A-Z]+)(\d+)/).slice(1);
 
       // Compare the numeric portion
-      if (numericA < numericB) return -1;
-      if (numericA > numericB) return 1;
+      if (prefixA < prefixB) return -1;
+      if (prefixA > prefixB) return 1;
 
-      // If numeric portions are equal, compare the whole string
-      return a.roomId.localeCompare(b.roomId);
+     // If prefixes are equal, compare the numeric portion
+      return parseInt(numericA) - parseInt(numericB);
+
     });
     return fetchedRooms;
   } catch (error) {
@@ -62,7 +63,7 @@ const Rooms = () => {
     <div >
       {isvisible.bool ? (
         <div className='room_page'>
-          {/* <RoomAllocation /> */}
+          <RoomAllocation />
           <div className='room-heading'>ROOMS</div>
           {rooms.map(room => (
             <div className="room" key={room.id}>

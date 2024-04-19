@@ -6,6 +6,7 @@ import { RoomCreation } from './roomCreation/roomCreation';
 import { firestore } from './firebaseConfig';
 import RoomAllocation from './roomCreation/roomAllocation';
 import StudentDetails from './StudentDetails';
+import { Maintanence } from './maintanence';
 
 export const fetchRooms = async () => {
   try {
@@ -38,6 +39,7 @@ export const fetchRooms = async () => {
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [isvisible, SetIsvisible] = useState({bool:true,roomId:""});
+  const [maintenanceClicked, setMaintenanceClicked] = useState(false);
 
   useEffect(() => {
     const loadRooms = async () => {
@@ -58,31 +60,48 @@ const Rooms = () => {
     });
   }
 
-  return (
-  
-    <div >
-      {isvisible.bool ? (
-        <div className='room_page'>
-          <RoomAllocation />
-          <div className='room-heading'>ROOMS</div>
-          {rooms.map(room => (
-            <div className="room" key={room.id}>
-              <div className="room_no">{room.roomId}</div>
-              <div className="stu_mai">
-                {/* Link to dynamic routes based on room number */}
-                <div className="stu_data" onClick={() => handleVisibility(room.roomId)}>Students Data</div>
-                <a href="/maintanence" className="maintanence">Maintanence</a>
-              </div>
-            </div>
-          ))} 
-          {/* <RoomCreation/> */}
+  const handleMaintenance = ()=>{
+    setMaintenanceClicked(true);
+  }
 
-        </div>
-      ): (
-        <StudentDetails roomId = {isvisible.roomId} />
-      )}
+  const handleBack = () => {
+    setMaintenanceClicked(false);
+  };
+
+  return (
+    <div>
       
+      <div >
+      {!maintenanceClicked && (
+          <div>
+            {isvisible.bool ? (
+              <div className='room_page'>
+                <div className='room-heading'>ROOMS</div>
+                <RoomAllocation/>
+                {/* <RoomCreation/> */}
+                {rooms.map(room => (
+                  <div className="room" key={room.id}>
+                    <div className="room_no">{room.roomId}</div>
+                    <div className="stu_mai">
+                      <div className="stu_data" onClick={() => handleVisibility(room.roomId)}>Students Data</div>
+                      <div className="maintanence" onClick={handleMaintenance}>Maintanence</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <StudentDetails roomId={isvisible.roomId} />
+            )}
+          </div>
+        )}  
+        {/* Render MaintenanceComponent if maintenance link is clicked */}
+        {maintenanceClicked && <Maintanence handleBack={handleBack} />}
+      
+      </div>
+
+
     </div>
+  
   );
 };
 

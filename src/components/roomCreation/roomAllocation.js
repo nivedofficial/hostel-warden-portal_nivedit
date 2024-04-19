@@ -99,14 +99,14 @@ const RoomAllocation = ()=>{
                   console.log(student.Name);
               });
           });
-  
+          alert("Room Allocation Completed");
         } catch(error){
           console.error('Error Allocating students:', error);
       }
     }
 
     return (
-        <div>
+        <div >
             <h2>Allocation Process</h2>
             <button onClick={allocate}>Allocate Rooms</button>
         </div>

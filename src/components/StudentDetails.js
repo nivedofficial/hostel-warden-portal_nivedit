@@ -106,22 +106,28 @@ const StudentDetails = (props) => {
         </div>
       )}
       <div className="student-page">
-        {students.map((student, index) => (
-          <div className="student-box" key={student.id}>
-            <div>
-              {showDeleteButtons && <button className='delete' onClick={() => handleDelete(student.id)}>X</button>}
-              <div className="image"></div>
-              <div className="name">{student.Name}</div>
-              <div className="age">DOB: {student.DOB}</div>
-              <div className="phone">ContactNum: {student.ContactNum}</div>
-            </div>
-            <div>
-              <div className="address">Address: {student.Address}</div>
-              <div className="disability">Disability: {student.isDisabled ? "Yes" : "No"}</div>
-            </div>
+      {students.map(student => (
+        <div className="student-box" key={student.id}>
+          <div className="image"></div>
+          <div className="name">{student.Name}</div>
+          <div className='details'>
+            <div className="admission-num"><span >Admission Number:</span> <span className="field-value">{student.AdmissionNum}</span></div>
+            <div className="annual-income"><span >Annual Income:</span> <span className="field-value">{student.AnnualIncome}</span></div>
+            <div className="branch1"><span >Branch:</span> <span className="field-value">{student.Branch}</span></div>
+            <div className="contact-num"><span >Contact Number:</span> <span className="field-value">{student.ContactNum}</span></div>
+            <div className="dob"><span >Date of Birth:</span> <span className="field-value">{student.DOB}</span></div>
+            <div className="distance"><span >Distance from College:</span> <span className="field-value">{student.distance}</span></div>
+            <div className="email"><span >Email:</span> <span className="field-value">{student.Email}</span></div>
+            <div className="emergency-contact"><span >Emergency Contact:</span> <span className="field-value">{student.EmergencyContact}</span></div>
+            <div className="guardian-name"><span >Guardian Name:</span> <span className="field-value">{student.GuardianName}</span></div>
+            <div className="guardian-relation"><span >Guardian Relation:</span> <span className="field-value">{student.GuardianRelation}</span></div>
+            <div className="address"><span >Address</span> <span className="field-value">{student.Address}</span></div>
+            <div className="city"><span >City:</span> <span className="field-value">{student.City}</span></div>
+            <div className="state"><span >State:</span> <span className="field-value">{student.State}</span></div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
     </div>
   );
 };

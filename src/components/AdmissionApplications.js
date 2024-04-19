@@ -7,9 +7,9 @@ import pincode from "pincode-distance"
 
 const AdmissionApplications = () => {
   const [students, setStudents] = useState([]);
-  const Pincode = new pincode();
-  const distance = Pincode.getDistance("689121","690514" );
-  console.log('Distance is :', distance);
+  // const Pincode = new pincode();
+  // const distance = Pincode.getDistance("689121","690514" );
+  // console.log('Distance is :', distance);
 
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const AdmissionApplications = () => {
             <div className="branch1"><span >Branch:</span> <span className="field-value">{student.Branch}</span></div>
             <div className="contact-num"><span >Contact Number:</span> <span className="field-value">{student.ContactNum}</span></div>
             <div className="dob"><span >Date of Birth:</span> <span className="field-value">{student.DOB}</span></div>
-            <div className="distance"><span >Distance from College:</span> <span className="field-value">{student.Distance}</span></div>
+            <div className="distance"><span >Distance from College:</span> <span className="field-value">{student.distance}</span></div>
             <div className="email"><span >Email:</span> <span className="field-value">{student.Email}</span></div>
             <div className="emergency-contact"><span >Emergency Contact:</span> <span className="field-value">{student.EmergencyContact}</span></div>
             <div className="guardian-name"><span >Guardian Name:</span> <span className="field-value">{student.GuardianName}</span></div>

@@ -80,6 +80,7 @@ const StudentDetails = (props) => {
   return (
     <div className="student-details">
       <h2>Student Details for Room {roomNumber}</h2>
+      
       <div className="button-container">
         <button className='show-delete' onClick={toggleDeleteButtons}>{showDeleteButtons ? "Cancel" : "Delete Student"}</button>
         <div className="add-user-button-container">

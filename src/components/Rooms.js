@@ -77,8 +77,8 @@ const Rooms = () => {
             {isvisible.bool ? (
               <div className='room_page'>
                 <div className='room-heading'>ROOMS</div>
-                <RoomAllocation/>
-                {/* <RoomCreation/> */}
+                {/* <RoomAllocation/>
+                <RoomCreation/> */}
                 {rooms.map(room => (
                   <div className="room" key={room.id}>
                     <div className="room_no">{room.roomId}</div>

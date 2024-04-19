@@ -8,6 +8,7 @@ import PermissionRequest from './PermissionRequest';
 import AdmissionApplications from './AdmissionApplications';
 import Attendance from './Attendance';
 import LaundryBooking from './Laundry.js';
+import FeePayment from './Fee.js';
 import { ReactComponent as Icon } from './icons-svg/icon.svg';
 import { ReactComponent as RoomsIcon } from './icons-svg/rooms.svg';
 import { ReactComponent as ApplicationIcon } from './icons-svg/application.svg';
@@ -26,7 +27,7 @@ import pincode from "pincode-distance";
 const Services = () => {
   const [activeOption, setActiveOption] = useState('Rooms');
   // const LaundrySchedule = () => <div>Laundry Schedule Page</div>;
-  const HostelFees = () => <div>Hostel Fees Page</div>;
+  // const HostelFees = () => <div>Hostel Fees Page</div>;
   const PeriodicShuffling = () => <div>Periodic Shuffling Page</div>;
   const history = useHistory();
   const Pincode = new pincode();
@@ -36,8 +37,8 @@ const Services = () => {
     { name: 'Laundry Schedule', component: <LaundryBooking />, icon: <LaundryIcon className="icons-dash" /> },
     { name: 'Notice Board', component: <NoticeBoard />, icon: <NoticeIcon className="icons-dash" /> },
     { name: 'Attendance', component: <Attendance />, icon: <AttendanceIcon className="icons-dash" /> },
-    { name: 'Hostel Fees', component: <HostelFees />, icon: <FeeIcon className="icons-dash" /> },
-    { name: 'Periodic Shuffling', component: <PeriodicShuffling />, icon: <PShuffleIcon className="icons-dash" /> },
+    { name: 'Hostel Fees', component: <FeePayment />, icon: <FeeIcon className="icons-dash" /> },
+    // { name: 'Periodic Shuffling', component: <PeriodicShuffling />, icon: <PShuffleIcon className="icons-dash" /> },
     { name: 'Admission Applications', component: <AdmissionApplications />, icon: <ApplicationIcon className="icons-dash" /> },
   ];
 

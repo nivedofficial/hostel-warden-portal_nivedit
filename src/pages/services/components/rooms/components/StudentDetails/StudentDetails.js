@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './StudentDetails.css';
 import { collection, getDocs } from 'firebase/firestore';
-import { firestore } from './firebaseConfig'; // Importing the Firestore instance
+import { firestore } from '../../../../../../firebaseConfig'; // Importing the Firestore instance
 
 const StudentDetails = (props) => {
   const roomNumber  = props.roomId;
@@ -81,12 +81,12 @@ const StudentDetails = (props) => {
     <div className="student-details">
       <h2>Student Details for Room {roomNumber}</h2>
       
-      <div className="button-container">
+      {/* <div className="button-container">
         <button className='show-delete' onClick={toggleDeleteButtons}>{showDeleteButtons ? "Cancel" : "Delete Student"}</button>
         <div className="add-user-button-container">
           <button className='add-user' onClick={toggleAddUserForm}>Add User</button>
         </div>
-      </div>
+      </div> */}
       {showAddUserForm && (
         <div className="add-user-form">
           <h3>Add New Student</h3>

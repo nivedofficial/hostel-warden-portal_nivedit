@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { firestore } from "../firebaseConfig";
+import { firestore } from "../../../../../firebaseConfig";
 import { collection, addDoc, getDocs} from "firebase/firestore";
 
 
@@ -52,7 +52,7 @@ export const RoomCreation = ()=>{
     return (
         <div>
             <h2>Add Rooms to Firestore</h2>
-            <button onClick={addData}>Add Rooms</button>
+            <button onClick={addData} style={{padding:'10px'}}>Add Rooms</button>
         </div>
     );
 }

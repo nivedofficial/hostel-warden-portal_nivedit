@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import './Services.css';
-import Rooms from './Rooms';
-import StudentDetails from './StudentDetails';
-import NoticeBoard from './NoticeBoard';
-import PermissionRequest from './PermissionRequest';
-import AdmissionApplications from './AdmissionApplications';
-import Attendance from './Attendance';
-import LaundryBooking from './Laundry.js';
-import FeePayment from './Fee.js';
-import { ReactComponent as Icon } from './icons-svg/icon.svg';
-import { ReactComponent as RoomsIcon } from './icons-svg/rooms.svg';
-import { ReactComponent as ApplicationIcon } from './icons-svg/application.svg';
-import { ReactComponent as FeeIcon } from './icons-svg/fee.svg';
-import { ReactComponent as PShuffleIcon } from './icons-svg/p-shuffle.svg';
-import { ReactComponent as NoticeIcon } from './icons-svg/notice.svg';
-import { ReactComponent as LaundryIcon } from './icons-svg/laundry.svg';
-import { ReactComponent as PermissionIcon } from './icons-svg/permission.svg';
-import { ReactComponent as AttendanceIcon } from './icons-svg/attendance.svg';
-import { ReactComponent as LogoutIcon } from './icons-svg/logout.svg';
+import Rooms from './components/rooms/Rooms.js';
+import NoticeBoard from './components/noticeBoard/NoticeBoard.js';
+import PermissionRequest from './components/permission/PermissionRequest.js';
+import AdmissionApplications from './components/Applicants/AdmissionApplications.js';
+import Attendance from './components/attendance/Attendance.js';
+import LaundryBooking from './components/laundry/Laundry.js';
+import FeePayment from './components/Fee/Fee.js';
+import { ReactComponent as Icon } from '../../icons-svg/icon.svg';
+import { ReactComponent as RoomsIcon } from '../../icons-svg/rooms.svg';
+import { ReactComponent as ApplicationIcon } from '../../icons-svg/application.svg';
+import { ReactComponent as FeeIcon } from '../../icons-svg/fee.svg';
+import { ReactComponent as PShuffleIcon } from '../../icons-svg/p-shuffle.svg';
+import { ReactComponent as NoticeIcon } from '../../icons-svg/notice.svg';
+import { ReactComponent as LaundryIcon } from '../../icons-svg/laundry.svg';
+import { ReactComponent as PermissionIcon } from '../../icons-svg/permission.svg';
+import { ReactComponent as AttendanceIcon } from '../../icons-svg/attendance.svg';
+import { ReactComponent as LogoutIcon } from '../../icons-svg/logout.svg';
 import { getAuth, signOut } from 'firebase/auth';
-import { firestore } from './firebaseConfig';
+import { firestore } from '../../firebaseConfig.js';
 import { updateDoc, collection, getDocs } from "firebase/firestore";
 import pincode from "pincode-distance";
 
@@ -59,8 +58,13 @@ const Services = () => {
       // Update Firestore document with distance field
       await updateDoc(doc.ref, { 
         distance : distance,
-        // isAllocated : false,
+        isAllocated : false,
        });
+      if (studentData.isAllocated === false){
+        await updateDoc(doc.ref, { 
+          RoomId : ""
+         });
+      }
     });
   };
 

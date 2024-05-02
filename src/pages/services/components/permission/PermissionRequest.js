@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
-import { firestore } from './firebaseConfig'; // Import your Firestore configuration
+import { firestore } from '../../../../firebaseConfig'; // Import your Firestore configuration
 import './permission.css';
 
 const PermissionRequest = () => {

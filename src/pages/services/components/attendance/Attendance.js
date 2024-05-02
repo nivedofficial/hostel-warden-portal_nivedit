@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDoc, getDocs, doc, setDoc, updateDoc } from 'firebase/firestore';
-import { firestore } from './firebaseConfig';
+import { firestore } from '../../../../firebaseConfig';
 import './Attendance.css';
 
 const Attendance = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { firestore } from './firebaseConfig';
-import './StudentDetails.css';
+import { firestore } from '../../../../firebaseConfig';
+import '../../components/rooms/components/StudentDetails/StudentDetails.css';
 import pincode from "pincode-distance"
 
 

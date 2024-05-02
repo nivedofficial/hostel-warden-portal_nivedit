@@ -1,8 +1,8 @@
 import { BrowserRouter,Route, Switch,Link } from "react-router-dom";
-import SignIn from "./components/signin";
-import SignUp from "./components/signup";
-import Services from "./components/Services";
-import { Welcome } from "./screens/welcome";
+import SignIn from "./pages/signin/signin";
+import SignUp from "./pages/signup/signup";
+import Services from "./pages/services/Services";
+import { Welcome } from "./pages/welcomePage/welcome";
 
 const App = () => {
   return (

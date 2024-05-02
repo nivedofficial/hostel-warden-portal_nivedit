@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import './Room.css';
 import { Link } from 'react-router-dom';
 import { collection, getDocs } from "firebase/firestore";
-import { RoomCreation } from './roomCreation/roomCreation';
-import { firestore } from './firebaseConfig';
-import RoomAllocation from './roomCreation/roomAllocation';
-import StudentDetails from './StudentDetails';
-import { Maintanence } from './maintanence';
+import { RoomCreation } from './components/roomCreation';
+import { firestore } from '../../../../firebaseConfig';
+import RoomAllocation from './components/roomAllocation';
+import StudentDetails from './components/StudentDetails/StudentDetails';
+import { Maintanence } from '../../../../components/maintanence';
 
 export const fetchRooms = async () => {
   try {
@@ -69,16 +69,16 @@ const Rooms = () => {
   };
 
   return (
-    <div>
-      
+    <div >      
       <div >
       {!maintenanceClicked && (
           <div>
             {isvisible.bool ? (
               <div className='room_page'>
+                <RoomCreation/>
+                <RoomAllocation/>               
                 <div className='room-heading'>ROOMS</div>
-                {/* <RoomAllocation/>
-                <RoomCreation/> */}
+                
                 {rooms.map(room => (
                   <div className="room" key={room.id}>
                     <div className="room_no">{room.roomId}</div>

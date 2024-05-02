@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {fetchRooms} from "../Rooms"
 import { doc, writeBatch, collection, getDocs } from "firebase/firestore";
-import { firestore } from '../firebaseConfig';
+import { firestore } from '../../../../../firebaseConfig';
 
 
 const RoomAllocation = ()=>{
@@ -25,7 +25,8 @@ const RoomAllocation = ()=>{
             const nonAllocatedStudents = students.filter(student => !student.isAllocated);
       
 
-            const sortedStudents = nonAllocatedStudents.sort((a, b) => {
+            const sortedStudents = nonAllocatedStudents.sort(
+                (a, b) => {
                 // Sort disabled students first
                 if (a.isDisabled && !b.isDisabled) {
                     return -1;
@@ -106,9 +107,9 @@ const RoomAllocation = ()=>{
     }
 
     return (
-        <div >
+        <div style={{marginLeft:'50px'}}>
             <h2>Allocation Process</h2>
-            <button onClick={allocate}>Allocate Rooms</button>
+            <button onClick={allocate} style={{padding:'10px'}}>Allocate Rooms</button>
         </div>
     );
 

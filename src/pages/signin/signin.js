@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import './signin.css';
-import { firestore } from './firebaseConfig'; // Import your firebaseConfig.js
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +11,19 @@ const SignIn = () => {
   const [signInError, setSignInError] = useState('');
   const history = useHistory();
   const auth = getAuth();
+
+  useEffect(() => {
+    // Check if user is already authenticated
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, redirect to desired page
+        history.push('/Services');
+      }
+    });
+
+    // Clean up subscription on unmount
+    return () => unsubscribe();
+  }, [auth, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

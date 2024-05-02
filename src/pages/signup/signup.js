@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'; // Import useHistory
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { getAuth } from "firebase/auth";
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { firestore } from './firebaseConfig'; // Import your firebaseConfig.js
+import { firestore } from '../../firebaseConfig'; // Import your firebaseConfig.js
 import './signup.css'
 
 const SignUp = () => {

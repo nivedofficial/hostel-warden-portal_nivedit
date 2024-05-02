@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, getDoc, updateDoc, doc } from 'firebase/firestore';
-import { firestore } from './firebaseConfig'; // Import your Firestore configuration
+import { firestore } from '../../../../firebaseConfig'; // Import your Firestore configuration
 import './Laundry.css';
 
 const LaundryBooking = () => {

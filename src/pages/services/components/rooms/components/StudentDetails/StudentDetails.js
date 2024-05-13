@@ -3,22 +3,23 @@ import { useParams } from 'react-router-dom';
 import './StudentDetails.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../../../../../firebaseConfig'; // Importing the Firestore instance
+import Delete from '../../../../../../icons-svg/delete.svg'
 
 const StudentDetails = (props) => {
   const roomNumber  = props.roomId;
   const [students, setStudents] = useState([]);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
-  const [showAddUserForm, setShowAddUserForm] = useState(false);
-  const [newStudentData, setNewStudentData] = useState({
-    name: '',
-    age: '',
-    gender: '',
-    phone: '',
-    address: '',
-    semester: '',
-    batch: '',
-    disability: ''
-  });
+  // const [showAddUserForm, setShowAddUserForm] = useState(false);
+  // const [newStudentData, setNewStudentData] = useState({
+  //   name: '',
+  //   age: '',
+  //   gender: '',
+  //   phone: '',
+  //   address: '',
+  //   semester: '',
+  //   batch: '',
+  //   disability: ''
+  // });
 
   useEffect(() => {
     const fetchStudentDetails = async () => {
@@ -37,7 +38,7 @@ const StudentDetails = (props) => {
     };
 
     fetchStudentDetails();
-  }, []);
+  }, [students]);
 
   const handleDelete = (id) => {
     const updatedStudents = students.filter(student => student.id !== id);
@@ -48,69 +49,53 @@ const StudentDetails = (props) => {
     setShowDeleteButtons(!showDeleteButtons);
   };
 
-  const toggleAddUserForm = () => {
-    setShowAddUserForm(!showAddUserForm);
-  };
+  // const toggleAddUserForm = () => {
+  //   setShowAddUserForm(!showAddUserForm);
+  // };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewStudentData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setNewStudentData(prevData => ({
+  //     ...prevData,
+  //     [name]: value
+  //   }));
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newStudent = { ...newStudentData, id: students.length + 1, roomNumber: roomNumber };
-    setStudents([...students, newStudent]);
-    setNewStudentData({
-      name: '',
-      age: '',
-      gender: '',
-      phone: '',
-      address: '',
-      semester: '',
-      batch: '',
-      disability: ''
-    });
-    setShowAddUserForm(false);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newStudent = { ...newStudentData, id: students.length + 1, roomNumber: roomNumber };
+  //   setStudents([...students, newStudent]);
+  //   setNewStudentData({
+  //     name: '',
+  //     age: '',
+  //     gender: '',
+  //     phone: '',
+  //     address: '',
+  //     semester: '',
+  //     batch: '',
+  //     disability: ''
+  //   });
+  //   setShowAddUserForm(false);
+  // };
 
   return (
     <div className="student-details">
       <h2>Student Details for Room {roomNumber}</h2>
       
-      {/* <div className="button-container">
+      <div className="button-container">
         <button className='show-delete' onClick={toggleDeleteButtons}>{showDeleteButtons ? "Cancel" : "Delete Student"}</button>
-        <div className="add-user-button-container">
+        {/* <div className="add-user-button-container">
           <button className='add-user' onClick={toggleAddUserForm}>Add User</button>
-        </div>
-      </div> */}
-      {showAddUserForm && (
-        <div className="add-user-form">
-          <h3>Add New Student</h3>
-          <form onSubmit={handleSubmit}>
-            <input type="text" name="name" placeholder="Name" value={newStudentData.name} onChange={handleInputChange} required />
-            <input type="text" name="age" placeholder="DOB" value={newStudentData.age} onChange={handleInputChange} required />
-            <input type="text" name="gender" placeholder="Gender" value={newStudentData.gender} onChange={handleInputChange} required />
-            <input type="text" name="phone" placeholder="ContactNum" value={newStudentData.phone} onChange={handleInputChange} required />
-            <input type="text" name="address" placeholder="Location" value={newStudentData.address} onChange={handleInputChange} required />
-            <input type="text" name="semester" placeholder="Semester" value={newStudentData.semester} onChange={handleInputChange} required />
-            <input type="text" name="batch" placeholder="Branch" value={newStudentData.batch} onChange={handleInputChange} required />
-            <input type="text" name="disability" placeholder="Disability (Yes/No)" value={newStudentData.disability} onChange={handleInputChange} required />
-            <div className="add-student-buttons">
-              <button type="submit">Add Student</button>
-              <button type="button" onClick={toggleAddUserForm} style={{ marginLeft: '10px', backgroundColor:'red' }}>Cancel</button>
-            </div>
-          </form>
-        </div>
-      )}
+        </div> */}
+      </div>
       <div className="student-page">
       {students.map(student => (
         <div className="student-box" key={student.id}>
           <div className="image"></div>
           <div className="name">{student.Name}</div>
+          {/* <div className='delete'>
+            <img src={Delete} alt="" />
+          </div> */}
           <div className='details'>
             <div className="admission-num"><span >Admission Number:</span> <span className="field-value">{student.AdmissionNum}</span></div>
             <div className="annual-income"><span >Annual Income:</span> <span className="field-value">{student.AnnualIncome}</span></div>

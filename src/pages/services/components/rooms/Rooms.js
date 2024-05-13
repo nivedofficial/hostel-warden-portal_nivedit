@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import './Room.css';
-import { Link } from 'react-router-dom';
+import './components/StudentDetails/StudentDetails.css'
 import { collection, getDocs } from "firebase/firestore";
 import { RoomCreation } from './components/roomCreation';
 import { firestore } from '../../../../firebaseConfig';
 import RoomAllocation from './components/roomAllocation';
 import StudentDetails from './components/StudentDetails/StudentDetails';
 import { Maintanence } from '../../../../components/maintanence';
+import Delete from '../../../../icons-svg/delete.svg'
 
 export const fetchRooms = async () => {
   try {
@@ -51,7 +52,7 @@ const Rooms = () => {
       }
     };
     loadRooms();
-  }, []);
+  }, [rooms]);
 
   const handleVisibility = (roomId) => {
     SetIsvisible({
@@ -70,13 +71,13 @@ const Rooms = () => {
   };
 
   return (
-    <div >
-      <div >
-        {!maintenanceClicked && (
+    <div>      
+      <div>
+      {!maintenanceClicked && (
           <div>
             {isvisible.bool ? (
               <div className='room_page'>
-                <RoomCreation/>
+                {/* <RoomCreation/> */}
                 <RoomAllocation/>               
                 <div className='room-heading'>ROOMS</div>
                 
@@ -89,6 +90,7 @@ const Rooms = () => {
                     </div>
                   </div>
                 ))}
+
               </div>
             ) : (
               <StudentDetails roomId={isvisible.roomId} />

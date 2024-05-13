@@ -8,9 +8,20 @@ const RoomAllocation = ()=>{
 
     const [rooms, setRooms] = useState([]);
     const [students, setStudents] = useState([]);
+    const [hostel, setHostel] = useState([]);
+
   
     const allocate = async ()=>{
-        try{           
+        try{     
+            const wardenCollection = collection(firestore, 'Warden'); 
+            const wardenSnapshot = await getDocs(wardenCollection);
+            const fetchedHostel = wardenSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));  
+            setHostel(fetchedHostel);
+
+
             const studentsCollection = collection(firestore, 'Users'); 
             const querySnapshot1 = await getDocs(studentsCollection);
             const fetchedStudents = querySnapshot1.docs.map(doc => ({
@@ -77,13 +88,13 @@ const RoomAllocation = ()=>{
           const batch = writeBatch(firestore); // Create a batch object
           sortedStudents.forEach(student => {
               for (const room of rooms) {
-                  if (room.occupants.length < 2) { // Check if room has space for more students
+                  if (room.occupants.length < hostel[0].CapacityOfEachRoom) { // Check if room has space for more students
                       const studentDocRef = doc(firestore, 'Users', student.id);
                       batch.update(studentDocRef, { isAllocated: true, RoomId : room.roomId }); // Update isAllocated field for the student
                       student.isAllocated = true;
                       student.RoomId = room.roomId;
                       room.occupants.push(student);
-                      room.isFilled = (room.occupants.length == 2) ? true : false ;
+                      room.isFilled = (room.occupants.length == hostel[0].CapacityOfEachRoom) ? true : false ;
                       const roomDocRef = doc(firestore, 'Rooms', room.id);
                       batch.update(roomDocRef, { occupants: room.occupants, isFilled : room.isFilled }); // Update students array for the room
                       break;

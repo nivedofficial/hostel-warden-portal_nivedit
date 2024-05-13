@@ -35,11 +35,11 @@ export const fetchRooms = async () => {
     throw error; // Rethrow the error to handle it outside
   }
 };
-
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
-  const [isvisible, SetIsvisible] = useState({bool:true,roomId:""});
+  const [isvisible, SetIsvisible] = useState({ bool: true, roomId: "" });
   const [maintenanceClicked, setMaintenanceClicked] = useState(false);
+  const [maintenanceRoomId, setMaintenanceRoomId] = useState(""); // State to store roomId for maintenance
 
   useEffect(() => {
     const loadRooms = async () => {
@@ -53,14 +53,15 @@ const Rooms = () => {
     loadRooms();
   }, []);
 
-  const handleVisibility = (roomId)=>{
+  const handleVisibility = (roomId) => {
     SetIsvisible({
-      bool : false,
+      bool: false,
       roomId: roomId,
     });
   }
 
-  const handleMaintenance = ()=>{
+  const handleMaintenance = (roomId) => { // Update handleMaintenance to accept roomId
+    setMaintenanceRoomId(roomId); // Set the roomId for maintenance
     setMaintenanceClicked(true);
   }
 
@@ -69,9 +70,9 @@ const Rooms = () => {
   };
 
   return (
-    <div >      
+    <div >
       <div >
-      {!maintenanceClicked && (
+        {!maintenanceClicked && (
           <div>
             {isvisible.bool ? (
               <div className='room_page'>
@@ -84,7 +85,7 @@ const Rooms = () => {
                     <div className="room_no">{room.roomId}</div>
                     <div className="stu_mai">
                       <div className="stu_data" onClick={() => handleVisibility(room.roomId)}>Students Data</div>
-                      <div className="maintanence" onClick={handleMaintenance}>Maintanence</div>
+                      <div className="maintanence" onClick={() => handleMaintenance(room.roomId)}>Maintanence</div>
                     </div>
                   </div>
                 ))}
@@ -95,13 +96,9 @@ const Rooms = () => {
           </div>
         )}  
         {/* Render MaintenanceComponent if maintenance link is clicked */}
-        {maintenanceClicked && <Maintanence handleBack={handleBack} />}
-      
+        {maintenanceClicked && <Maintanence roomId={maintenanceRoomId} handleBack={handleBack} />} {/* Pass maintenanceRoomId */}
       </div>
-
-
     </div>
-  
   );
 };
 

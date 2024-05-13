@@ -1,67 +1,143 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { collection, getDocs, getDoc,updateDoc, addDoc, doc, setDoc } from 'firebase/firestore';
 import { firestore } from '../../../../firebaseConfig';
 
 const FeePayment = () => {
   const [monthlyFee, setMonthlyFee] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
   const [students, setStudents] = useState([]);
+  const [paymentsExist, setPaymentsExist] = useState(false);
+  const [monthlyData, setMonthlyData] = useState([]);
 
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const usersCollection = collection(firestore, 'Users');
-        const querySnapshot = await getDocs(usersCollection);
-        const fetchedStudents = querySnapshot.docs
-          .filter(doc => doc.data().isAllocated)
-          .map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
-        setStudents(fetchedStudents);
+        const roomsCollection = collection(firestore, 'Rooms');
+        const querySnapshot = await getDocs(roomsCollection);
+        let fetchedStudents = [];
+        if (querySnapshot.empty) {
+          console.log('Rooms collection is empty or does not exist.');
+        } else {
+          querySnapshot.forEach((doc) => {
+            const room = doc.data();
+            if (room.occupants && room.occupants.length > 0) {
+              fetchedStudents = [
+                ...fetchedStudents,
+                ...room.occupants.map((student) => ({
+                  id: student.id,
+                  ...student
+                }))
+              ];
+            }
+          });
+          setStudents(fetchedStudents);
+        }
       } catch (error) {
         console.error('Error fetching students:', error);
       }
     };
-
+  
     fetchStudents();
+  }, []);
+  useEffect(() => {
+    const fetchMonthlyData = async () => {
+      try {
+        const monthlyFeeCollectionRef = collection(firestore, 'MonthlyFee');
+        const querySnapshot = await getDocs(monthlyFeeCollectionRef);
+        let monthlyDataArray = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          monthlyDataArray.push({ monthYear: doc.id, payments: data.payments });
+        });
+        setMonthlyData(monthlyDataArray);
+      } catch (error) {
+        console.error('Error fetching monthly data:', error);
+      }
+    };
+
+    fetchMonthlyData();
   }, []);
 
   const calculateFee = (monthlyFee, consecutive5DaysAbsent) => {
     let fee = monthlyFee;
-    // Calculate reduction based on consecutive days absent
-    fee -= (monthlyFee * (consecutive5DaysAbsent * 0.16)); // 16% reduction for each consecutive day
+    fee -= monthlyFee * (consecutive5DaysAbsent * 0.16);
     return fee;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Perform fee calculation for each student
-    const feePayments = students.map(student => ({
-      id: student.id,
-      name: student.Name,
-      fee: calculateFee(monthlyFee, student.consecutive5DaysAbsent)
-    }));
-    // Display fee payments
-    console.log('Fee Payments:', feePayments);
-    
-    // Store fee payments in MonthlyFee collection
+  const handleSubmit = async () => {
     try {
-      const monthlyFeeCollection = collection(firestore, 'MonthlyFee');
-      await Promise.all(feePayments.map(async (payment) => {
-        await addDoc(monthlyFeeCollection, {
-          studentId: payment.id,
-          studentName: payment.name, // Corrected here
-          fee: payment.fee,
-          month: selectedMonth
-        });
-      }));
-      console.log('Fee payments stored in MonthlyFee collection.');
+      const monthYear = `${selectedMonth}-${selectedYear}`;
+      const monthlyFeeCollectionRef = collection(firestore, 'MonthlyFee');
+      const monthYearCollectionRef = doc(monthlyFeeCollectionRef, monthYear);
+  
+      const docSnapshot = await getDoc(monthYearCollectionRef);
+  
+      if (!docSnapshot.exists()) {
+        const feePayments = students.map(student => ({
+          studentId: student.id,
+          studentName: student.Name,
+          fee: calculateFee(monthlyFee, student.consecutive5DaysAbsent),
+          isPaid: false
+        }));
+  
+        await setDoc(monthYearCollectionRef, { payments: feePayments });
+  
+        console.log('Fee payments stored in MonthlyFee collection for', monthYear);
+        setPaymentsExist(false);
+      } else {
+        setPaymentsExist(true);
+        console.log('Fee payments already exist for', monthYear);
+      }
+  
+      // Update consecutive days absent to zero for students with non-empty roomId
+      const updatecon5 = async () => {
+        try {
+          const roomsCollection = collection(firestore, 'Rooms');
+          const querySnapshot = await getDocs(roomsCollection);
+          let fetchedStudents = [];
+          if (querySnapshot.empty) {
+            console.log('Rooms collection is empty or does not exist.');
+          } else {
+            console.log("inside")
+            querySnapshot.forEach(async (doc) => {
+              const room = doc.data();
+              if (room.occupants && room.occupants.length > 0) {
+                const updatedOccupants = room.occupants.map((student) => ({
+                  ...student,
+                  consecutive5DaysAbsent: 0,
+                  consecutiveDaysAbsent: 0
+                }));
+      
+                // Update the document in Firestore with the updated occupants
+                const roomRef = doc.ref;
+                await updateDoc(roomRef, { occupants: updatedOccupants });
+      
+                fetchedStudents = [
+                  ...fetchedStudents,
+                  ...updatedOccupants.map((student) => ({
+                    id: student.id,
+                    ...student
+                  }))
+                ];
+              }
+            });
+            setStudents(fetchedStudents);
+          }
+        } catch (error) {
+          console.error('Error fetching students:', error);
+        }
+      };
+      
+      updatecon5();
+      
+  
     } catch (error) {
       console.error('Error storing fee payments:', error);
     }
   };
-
+  
+  
   return (
     <div>
       <h2>Fee Payment</h2>
@@ -82,8 +158,17 @@ const FeePayment = () => {
           onChange={(e) => setSelectedMonth(e.target.value)}
           required
         />
+        <label htmlFor="selectedYear">Year:</label>
+        <input
+          type="number"
+          id="selectedYear"
+          value={selectedYear}
+          onChange={(e) => setSelectedYear(Number(e.target.value))}
+          required
+        />
         <button type="button" onClick={handleSubmit}>SUBMIT</button>
       </form>
+      {paymentsExist && <p style={{ color: 'red' }}>Fee payments already exist for {`${selectedMonth}-${selectedYear}`}</p>}
       <div>
         <h3>Students Fee Payments</h3>
         <ul>
@@ -93,6 +178,20 @@ const FeePayment = () => {
             </li>
           ))}
         </ul>
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {monthlyData.map(item => (
+          <div key={item.monthYear} style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', margin: '10px', width: '350px' }}>
+            <h3>{item.monthYear}</h3>
+            <ul>
+              {item.payments.map(payment => (
+                <li key={payment.studentId}>
+                  {payment.studentName}: Fee - <span style={{ color: 'blue' }}>{payment.fee}</span> Paid - <span style={{ color: payment.isPaid ? 'green' : 'red' }}>{payment.isPaid ? 'Yes' : 'No'}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );

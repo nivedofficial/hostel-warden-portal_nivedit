@@ -50,7 +50,7 @@ const SignIn = () => {
       // If sign-in successful, redirect to Services
       history.push('/Services');
     } catch (error) {
-      setSignInError(error.message);
+      setSignInError("Invalid email or password. Please try again.");
     }
   };
 
@@ -60,12 +60,13 @@ const SignIn = () => {
     <div className="signin-form-container signin-sign-in-container">
       <form onSubmit={handleSubmit} className="signin-form">
         <h1 className="signin-h1">Sign in</h1>
-        <div className="signin-social-container">
-          <a href="#" className="signin-social"><i className="fab fa-facebook-f"></i></a>
-          <a href="#" className="signin-social"><i className="fab fa-google-plus-g"></i></a>
-          <a href="#" className="signin-social"><i className="fab fa-linkedin-in"></i></a>
+        <div style={{ marginBottom: '10px' }}>
+          
         </div>
         <span className="signin-span">or use your account</span>
+        <div style={{ marginBottom: '20px' }}>
+          
+          </div>
         <input
           type="email"
           placeholder="Email"
@@ -81,10 +82,11 @@ const SignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="signin-input"
         />
-        {passwordError && <div className="error">{passwordError}</div>}
+       {signInError && <div className="error" style={{ color: 'red' }}>{signInError}</div>}
+            {passwordError && <div className="error"  style={{ color: 'red' }}>{passwordError}</div>}
         <a href="#" className="signin-a">Forgot your password?</a>
         <button type="submit" className="signin-button">Sign In</button>
-        {signInError && <div className="error">{signInError}</div>}
+        
         <div className="signup-link-container">
           <Link to="/signup" className="create-button">Create User</Link>
         </div>

@@ -118,8 +118,8 @@ const RoomAllocation = ()=>{
     }
 
     return (
-        <div style={{marginLeft:'50px'}}>
-            <h2>Allocation Process</h2>
+        <div style={{marginLeft:'50px',padding:'10px',width: '131px',height: '48px',marginTop:'15px'}}>
+            {/* <h2>Allocation Process</h2> */}
             <button onClick={allocate} style={{padding:'10px'}}>Allocate Rooms</button>
         </div>
     );

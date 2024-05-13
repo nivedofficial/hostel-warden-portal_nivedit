@@ -6,6 +6,12 @@
 }
 
 .room-heading{
+  display: flex;
+  flex-direction: row;
+  margin-right: 900px;
+
+}
+.room-heading > p{
     /* ROOMS */
 background-color: #D3F36A;
 padding-left: 20px;
@@ -16,11 +22,11 @@ border-radius: 20px;
 width: 131px;
 height: 48px;
 margin-top: 15px;
-margin-right: 900px;
 margin-left: 15px;
 margin-bottom: 40px;
 text-align: left;
-
+/* display: flex;
+flex-direction: row; */
 font-family: 'Satoshi Variable';
 font-style: normal;
 font-weight: 567;

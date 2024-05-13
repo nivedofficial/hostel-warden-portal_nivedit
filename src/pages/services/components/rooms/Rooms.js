@@ -76,22 +76,26 @@ const Rooms = () => {
       {!maintenanceClicked && (
           <div>
             {isvisible.bool ? (
-              <div className='room_page'>
-                {/* <RoomCreation/> */}
-                <RoomAllocation/>               
-                <div className='room-heading'>ROOMS</div>
-                
-                {rooms.map(room => (
-                  <div className="room" key={room.id}>
-                    <div className="room_no">{room.roomId}</div>
-                    <div className="stu_mai">
-                      <div className="stu_data" onClick={() => handleVisibility(room.roomId)}>Students Data</div>
-                      <div className="maintanence" onClick={() => handleMaintenance(room.roomId)}>Maintanence</div>
-                    </div>
+              <div>
+                <div className='room_page'>
+                  {/* <RoomCreation/> */}
+                  <div className='room-heading'>
+                    <p>ROOMS</p>
+                    <RoomAllocation/> 
                   </div>
-                ))}
-
+                  
+                  {rooms.map(room => (
+                    <div className="room" key={room.id}>
+                      <div className="room_no">{room.roomId}</div>
+                      <div className="stu_mai">
+                        <div className="stu_data" onClick={() => handleVisibility(room.roomId)}>Students Data</div>
+                        <div className="maintanence" onClick={() => handleMaintenance(room.roomId)}>Maintanence</div>
+                      </div>
+                    </div>
+                  ))}
               </div>
+              
+          </div>
             ) : (
               <StudentDetails roomId={isvisible.roomId} />
             )}

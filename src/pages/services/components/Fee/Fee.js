@@ -186,7 +186,7 @@ const FeePayment = () => {
             <ul>
               {item.payments.map(payment => (
                 <li key={payment.studentId}>
-                  {payment.studentName}: Fee - <span style={{ color: 'blue' }}>{payment.fee}</span> Paid - <span style={{ color: payment.isPaid ? 'green' : 'red' }}>{payment.isPaid ? 'Yes' : 'No'}</span>
+                  {payment.studentName}: Fee - <span style={{ color: 'blue' }}>{payment.fee}</span>
                 </li>
               ))}
             </ul>

@@ -10,9 +10,6 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [capacity, setCapacity] = useState('');
-  const [noOfRooms, setNoOfRooms] = useState('');
-  const [noOfFloors, setNoOfFloors] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -62,9 +59,7 @@ const SignUp = () => {
       await addDoc(collection(firestore, 'Warden'), {
         uid: user.uid,
         email: user.email,
-        // CapacityOfEachFloor: parseInt(capacity),
-        // NoOfRoomsInEachFloor: parseInt(noOfRooms),
-        // NoOfFloors: parseInt(noOfFloors),
+
       });
 
       // Reset form fields

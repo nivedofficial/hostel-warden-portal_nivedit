@@ -8,6 +8,7 @@ import AdmissionApplications from './components/Applicants/AdmissionApplications
 import Attendance from './components/attendance/Attendance.js';
 import LaundryBooking from './components/laundry/Laundry.js';
 import FeePayment from './components/Fee/Fee.js';
+import HostelSettingsForm from './components/hostelSettings/HostelSettingsForm.js';
 import { ReactComponent as Icon } from '../../icons-svg/icon.svg';
 import { ReactComponent as RoomsIcon } from '../../icons-svg/rooms.svg';
 import { ReactComponent as ApplicationIcon } from '../../icons-svg/application.svg';
@@ -18,6 +19,7 @@ import { ReactComponent as LaundryIcon } from '../../icons-svg/laundry.svg';
 import { ReactComponent as PermissionIcon } from '../../icons-svg/permission.svg';
 import { ReactComponent as AttendanceIcon } from '../../icons-svg/attendance.svg';
 import { ReactComponent as LogoutIcon } from '../../icons-svg/logout.svg';
+import { ReactComponent as HostelSettingsIcon } from '../../icons-svg/settings.svg';
 import { getAuth, signOut } from 'firebase/auth';
 import { firestore } from '../../firebaseConfig.js';
 import { updateDoc, collection, getDocs } from "firebase/firestore";
@@ -39,6 +41,7 @@ const Services = () => {
     { name: 'Hostel Fees', component: <FeePayment />, icon: <FeeIcon className="icons-dash" /> },
     // { name: 'Periodic Shuffling', component: <PeriodicShuffling />, icon: <PShuffleIcon className="icons-dash" /> },
     { name: 'Admission Applications', component: <AdmissionApplications />, icon: <ApplicationIcon className="icons-dash" /> },
+    { name: 'Hostel Configuration', component: <HostelSettingsForm />, icon: <HostelSettingsIcon className="icons-dash" /> },
   ];
 
   useEffect(() => {

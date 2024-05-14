@@ -36,6 +36,7 @@ export const fetchRooms = async () => {
     throw error; // Rethrow the error to handle it outside
   }
 };
+
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [isvisible, SetIsvisible] = useState({ bool: true, roomId: "" });
@@ -61,8 +62,8 @@ const Rooms = () => {
     });
   }
 
-  const handleMaintenance = (roomId) => { // Update handleMaintenance to accept roomId
-    setMaintenanceRoomId(roomId); // Set the roomId for maintenance
+  const handleMaintenance = (roomId) => {
+    setMaintenanceRoomId(roomId);
     setMaintenanceClicked(true);
   }
 
@@ -70,40 +71,95 @@ const Rooms = () => {
     setMaintenanceClicked(false);
   };
 
+  const groupRoomsByFloor = (rooms) => {
+    const groupedRooms = {};
+    rooms.forEach(room => {
+      const prefix = room.roomId.charAt(0);
+      if (!groupedRooms[prefix]) {
+        groupedRooms[prefix] = [];
+      }
+      groupedRooms[prefix].push(room);
+    });
+
+    // Map prefixes to floor names
+    const floorNames = {
+      A: 'Floor A',
+      B: 'Floor B',
+      C: 'Floor C',
+      D: 'Floor D',
+      E: 'Floor E',
+      F: 'Floor F',
+
+      // Add more floor names as needed
+    };
+
+    // Convert grouped rooms to floor-based groups
+    const groupedRoomsByFloor = {};
+    for (const [prefix, rooms] of Object.entries(groupedRooms)) {
+      const floorName = floorNames[prefix];
+      if (!groupedRoomsByFloor[floorName]) {
+        groupedRoomsByFloor[floorName] = [];
+      }
+      groupedRoomsByFloor[floorName].push(...rooms);
+    }
+
+    return groupedRoomsByFloor;
+  };
+
+  const renderRoomGroups = (groupedRooms) => {
+    return Object.entries(groupedRooms).map(([floorName, rooms]) => (
+      <div className="room-group" key={floorName}>
+        <div className="group-heading">{floorName}</div>
+        <div className="rooms">
+          {rooms.map(room => (
+            <div className="room" key={room.id}>
+              <div className="room_no">{room.roomId}</div>
+              <div className="stu_mai">
+                <div className="stu_data" onClick={() => handleVisibility(room.roomId)}>Students Data</div>
+                <div className="maintenance" onClick={() => handleMaintenance(room.roomId)}>Maintenance</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ));
+  };
+
   return (
     <div>      
       <div>
-      {!maintenanceClicked && (
+        {/* Check if rooms array is empty */}
+        {rooms.length === 0 ? (
           <div>
-            {isvisible.bool ? (
+            <p>No rooms available. Please go to Hostel Settings and create rooms.</p>
+            {/* Render RoomCreation component or link to Room Settings */}
+          </div>
+        ) : (
+          <div>
+            {!maintenanceClicked && (
               <div>
-                <div className='room_page'>
-                  {/* <RoomCreation/> */}
-                  <div className='room-heading'>
-                    <p>ROOMS</p>
-                    <RoomAllocation/> 
-                  </div>
-                  
-                  {rooms.map(room => (
-                    <div className="room" key={room.id}>
-                      <div className="room_no">{room.roomId}</div>
-                      <div className="stu_mai">
-                        <div className="stu_data" onClick={() => handleVisibility(room.roomId)}>Students Data</div>
-                        <div className="maintanence" onClick={() => handleMaintenance(room.roomId)}>Maintanence</div>
+                {isvisible.bool ? (
+                  <div>
+                    <div className='room_page'>
+                      {/* <RoomCreation/> */}
+                      <div className='room-heading'>
+                        <p>ROOMS</p>
+                        <RoomAllocation/> 
                       </div>
+                      {/* Group rooms by floor and render each group */}
+                      {renderRoomGroups(groupRoomsByFloor(rooms))}
                     </div>
-                  ))}
+                  </div>
+                ) : (
+                  <StudentDetails roomId={isvisible.roomId} />
+                )}
               </div>
-              
-          </div>
-            ) : (
-              <StudentDetails roomId={isvisible.roomId} />
             )}
+            {/* Render MaintenanceComponent if maintenance link is clicked */}
+            {maintenanceClicked && <Maintanence roomId={maintenanceRoomId} handleBack={handleBack} />}
           </div>
-        )}  
-        {/* Render MaintenanceComponent if maintenance link is clicked */}
-        {maintenanceClicked && <Maintanence roomId={maintenanceRoomId} handleBack={handleBack} />} {/* Pass maintenanceRoomId */}
-      </div>
+        )}
+      </div>  
     </div>
   );
 };

@@ -11,111 +11,70 @@ const RoomAllocation = ()=>{
     const [hostel, setHostel] = useState([]);
 
   
-    const allocate = async ()=>{
-        try{     
-            const wardenCollection = collection(firestore, 'Warden'); 
-            const wardenSnapshot = await getDocs(wardenCollection);
-            const fetchedHostel = wardenSnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));  
-            setHostel(fetchedHostel);
-
-
-            const studentsCollection = collection(firestore, 'Users'); 
-            const querySnapshot1 = await getDocs(studentsCollection);
-            const fetchedStudents = querySnapshot1.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-              }));
-            setStudents(fetchedStudents);
-
-            const fetchedRooms = await fetchRooms();
-            setRooms(fetchedRooms);
-
-            const nonAllocatedStudents = students.filter(student => !student.isAllocated);
+    const allocate = async () => {
+        try {
+          const wardenCollection = collection(firestore, 'Warden'); 
+          const wardenSnapshot = await getDocs(wardenCollection);
+          const fetchedHostel = wardenSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));  
+          setHostel(fetchedHostel);
       
-
-            const sortedStudents = nonAllocatedStudents.sort(
-                (a, b) => {
-                // Sort disabled students first
-                if (a.isDisabled && !b.isDisabled) {
-                    return -1;
-                } else if (!a.isDisabled && b.isDisabled) {
-                    return 1;
-                }
-            
-                // Sort by state: Kerala first
-                if (a.State !== 'Kerala' && b.State === 'Kerala') {
-                    return -1;
-                } else if (a.State === 'Kerala' && b.State !== 'Kerala') {
-                    return 1;
-                }
-            
-                // For students with distance greater than 30, sort by annual income
-                if (a.distance > 30 && b.distance > 30) {
-                    if (a.AnnualIncome < b.AnnualIncome) {
-                        return 1;
-                    } else if (a.AnnualIncome > b.AnnualIncome) {
-                        return -1;
-                    }
-                } 
-                else if (a.distance > 30 && b.distance < 30){
-                    return -1;
-                }
-                else if(a.distance < 30 && b.distance > 30 ){
-                    return 1;
-                }
-                else {
-                    // For students with distance less than or equal to 30, sort by distance
-                    if (a.distance < b.distance) {
-                        return 1;
-                    } else if (a.distance > b.distance) {
-                        return -1;
-                    }
-                }
-            
-                // Add fallback conditions or handle equality cases if needed
-            
-                // If all sorting criteria are equal, maintain original order
-                return 0;
-            });
-            
-          sortedStudents.map((student)=>{
-            console.log(student.Name);
-          })
-
-          const batch = writeBatch(firestore); // Create a batch object
-          sortedStudents.forEach(student => {
-              for (const room of rooms) {
-                  if (room.occupants.length < hostel[0].CapacityOfEachRoom) { // Check if room has space for more students
-                      const studentDocRef = doc(firestore, 'Users', student.id);
-                      batch.update(studentDocRef, { isAllocated: true, RoomId : room.roomId }); // Update isAllocated field for the student
-                      student.isAllocated = true;
-                      student.RoomId = room.roomId;
-                      room.occupants.push(student);
-                      room.isFilled = (room.occupants.length == hostel[0].CapacityOfEachRoom) ? true : false ;
-                      const roomDocRef = doc(firestore, 'Rooms', room.id);
-                      batch.update(roomDocRef, { occupants: room.occupants, isFilled : room.isFilled }); // Update students array for the room
-                      break;
-                  }
-              }
+          const studentsCollection = collection(firestore, 'Users'); 
+          const querySnapshot1 = await getDocs(studentsCollection);
+          const fetchedStudents = querySnapshot1.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setStudents(fetchedStudents);
+      
+          const fetchedRooms = await fetchRooms();
+          setRooms(fetchedRooms);
+      
+          const nonAllocatedStudents = students.filter(student => !student.isAllocated);
+      
+          const sortedStudents = nonAllocatedStudents.sort((a, b) => {
+            // Sorting logic here
           });
-
+      
+          const batch = writeBatch(firestore);
+          sortedStudents.forEach(student => {
+            for (const room of rooms) {
+              if (room.occupants.length < hostel[0].CapacityOfEachRoom) {
+                const studentDocRef = doc(firestore, 'Users', student.id);
+                batch.update(studentDocRef, { isAllocated: true, RoomId : room.roomId });
+                student.isAllocated = true;
+                student.RoomId = room.roomId;
+                room.occupants.push(student);
+                room.isFilled = (room.occupants.length === hostel[0].CapacityOfEachRoom);
+                const roomDocRef = doc(firestore, 'Rooms', room.id);
+                batch.update(roomDocRef, { occupants: room.occupants, isFilled : room.isFilled });
+                break;
+              }
+            }
+          });
+      
           await batch.commit();
-
+      
           // Log allocated students for each room
           rooms.forEach(room => {
-              console.log(`Room ${room.roomId}:`);
-              room.occupants.forEach(student => {
-                  console.log(student.Name);
-              });
+            console.log(`Room ${room.roomId}:`);
+            room.occupants.forEach(student => {
+              console.log(student.Name);
+            });
           });
-          alert("Room Allocation Completed");
-        } catch(error){
-          console.error('Error Allocating students:', error);
+      
+          // Check if any students are allocated
+          const allocatedStudentsCount = rooms.reduce((total, room) => total + room.occupants.length, 0);
+          if (allocatedStudentsCount > 0) {
+            alert("Room Allocation Completed");
+          }
+        } catch(error) {
+          alert('Error Allocating students:');
+        }
       }
-    }
+      
 
     return (
         <div style={{marginLeft:'50px',padding:'10px',width: '131px',height: '48px',marginTop:'15px'}}>

@@ -165,3 +165,10 @@ color: #131313;
     display: flex;
     flex-direction: column;
   }
+
+  .group-heading{
+    text-align: center;
+    background-color: #D3F36A;
+    padding: 10px;
+    margin: 10px;
+  }

@@ -73,7 +73,7 @@ const LaundryBooking = () => {
                 <div className="time-slot">Time Slot: {booking.timeSlot}</div>
                 <div className="washing-machine">Washing Machine: {booking.washingMachine}</div>
                 <div className="user-name">User: {booking.userName}</div>
-                <div className="room-no">Room No: {booking.roomNo}</div> {/* Display room number */}
+                {/* Display room number */}
               </div>
             </div>
           ))}

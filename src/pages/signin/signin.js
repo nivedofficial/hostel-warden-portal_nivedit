@@ -106,7 +106,7 @@ const SignIn = () => {
         />
        {signInError && <div className="error" style={{ color: 'red' }}>{signInError}</div>}
             {passwordError && <div className="error"  style={{ color: 'red' }}>{passwordError}</div>}
-        <a href="#" className="signin-a">Forgot your password?</a>
+        
         <button type="submit" className="signin-button">Sign In</button>
         
         <div className="signup-link-container">

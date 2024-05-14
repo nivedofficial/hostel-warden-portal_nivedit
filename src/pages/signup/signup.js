@@ -95,7 +95,7 @@ const SignUp = () => {
             {passwordConditions.length > 0 && (
               <ul>
                 {passwordConditions.map((condition, index) => (
-                  <li key={index} className="password-condition">{condition}</li>
+                  <li key={index} style={{ color: 'red' }} className="password-condition">{condition}</li>
                 ))}
               </ul>
             )}

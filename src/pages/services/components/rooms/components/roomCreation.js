@@ -30,18 +30,21 @@ export const RoomCreation = ()=>{
         try {
             const db = firestore;
             const collectionRef = collection(db, "Rooms");
-
+        
             // Fetch existing rooms from Firestore
             const existingRoomsSnapshot = await getDocs(collectionRef);
             const existingRoomIds = existingRoomsSnapshot.docs.map(doc => doc.data().roomId);
             console.log(existingRoomIds);
-
+        
+            // Extract the first item of the hostel array
+            const firstHostel = hostel.length > 0 ? hostel[0] : null;
+        
             const roomsToAdd = [];
-            for (const item of hostel) {
-                for (let i = 1; i <= item.NoOfFloors; i++) {
-                    for (let j = 1; j <= item.NoOfRoomsInEachFloor; j++) {
+            if (firstHostel) {
+                for (let i = 1; i <= firstHostel.NoOfFloors; i++) {
+                    for (let j = 1; j <= firstHostel.NoOfRoomsInEachFloor; j++) {
                         const roomId = String.fromCharCode(64 + i) + j;
-
+        
                         if (!existingRoomIds.includes(roomId)) {
                             roomsToAdd.push({
                                 roomId: roomId,
@@ -55,15 +58,19 @@ export const RoomCreation = ()=>{
                     }
                 }
             }
-            roomsToAdd.forEach(async room => {
-                await addDoc(collectionRef,room);
+        
+            // Add only the new rooms that are not already in Firestore
+            for (const room of roomsToAdd) {
+                await addDoc(collectionRef, room);
                 console.log(`${room.roomId} Data added successfully to Firestore!`);
-            })
+            }
+        
             setStatus(false);
         } catch (error) {
             console.error("Error adding data to Firestore:", error);
         }
     };
+        
 
     return (
         <div>

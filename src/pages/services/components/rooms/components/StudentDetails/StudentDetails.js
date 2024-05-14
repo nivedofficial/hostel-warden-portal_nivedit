@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './StudentDetails.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../../../../../firebaseConfig'; // Importing the Firestore instance
@@ -9,6 +10,7 @@ const StudentDetails = (props) => {
   const roomNumber  = props.roomId;
   const [students, setStudents] = useState([]);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
+  const history = useHistory();
   // const [showAddUserForm, setShowAddUserForm] = useState(false);
   // const [newStudentData, setNewStudentData] = useState({
   //   name: '',
@@ -40,14 +42,18 @@ const StudentDetails = (props) => {
     fetchStudentDetails();
   }, [students]);
 
-  const handleDelete = (id) => {
-    const updatedStudents = students.filter(student => student.id !== id);
-    setStudents(updatedStudents);
+  const handleBack = () => {
+    history.push('/services');// Navigate back to the previous page
   };
 
-  const toggleDeleteButtons = () => {
-    setShowDeleteButtons(!showDeleteButtons);
-  };
+  // const handleDelete = (id) => {
+  //   const updatedStudents = students.filter(student => student.id !== id);
+  //   setStudents(updatedStudents);
+  // };
+
+  // const toggleDeleteButtons = () => {
+  //   setShowDeleteButtons(!showDeleteButtons);
+  // };
 
   // const toggleAddUserForm = () => {
   //   setShowAddUserForm(!showAddUserForm);
@@ -82,12 +88,7 @@ const StudentDetails = (props) => {
     <div className="student-details">
       <h2>Student Details for Room {roomNumber}</h2>
       
-      <div className="button-container">
-        <button className='show-delete' onClick={toggleDeleteButtons}>{showDeleteButtons ? "Cancel" : "Delete Student"}</button>
-        {/* <div className="add-user-button-container">
-          <button className='add-user' onClick={toggleAddUserForm}>Add User</button>
-        </div> */}
-      </div>
+
       <div className="student-page">
       {students.map(student => (
         <div className="student-box" key={student.id}>

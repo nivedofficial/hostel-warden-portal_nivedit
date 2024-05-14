@@ -61,7 +61,7 @@ const Services = () => {
       // Update Firestore document with distance field
       await updateDoc(doc.ref, { 
         distance : distance,
-        isAllocated : false,
+        // isAllocated : false,
        });
       if (studentData.isAllocated === false){
         await updateDoc(doc.ref, { 
